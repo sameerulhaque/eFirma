@@ -1,0 +1,33 @@
+@*@foreach (var item in Model.SignersList)
+            {
+                <div class="card card-custom draggable SubSignersListAppendDiv">
+                    <div class="card-header draggable-handle">
+                        <div class="card-title">
+                            <span style="margin-right:5px" class="symbol symbol-lg-35 symbol-25 symbol-light-success">
+                                <span class="symbol-label font-size-h5 font-weight-bold">@item.SignatureName[0]</span>
+                            </span>
+                            <h3 class="card-label">
+                               @item.SignatureName <br />
+                                <small>@item.SignatureEmail</small>
+                            </h3>
+                        </div>
+                        <div class="card-toolbar">
+                            <a href="#" class="btn btn-icon RemoveRowSigners btn-sm btn-hover-light-primary">
+                                <i class="ki ki-close icon-nm"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }*@
+                                                        <!--end::Card-->
+
+
+
+
+
+
+
+
+
+
+Company Id : 7f000001-7c3d-192b-817c-49b239db0008

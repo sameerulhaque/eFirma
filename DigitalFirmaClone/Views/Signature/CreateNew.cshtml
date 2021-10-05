@@ -1,0 +1,608 @@
+﻿<link href="~/Metronic1/assets/css/pages/wizard/wizard-3.css" rel="stylesheet" type="text/css" />
+@model DigitalFirmaClone.Models.ModelClasses.Signers
+@using System.Security.Claims
+
+    @{ClaimsPrincipal user = User;
+        var userId = user.Claims.FirstOrDefault(x => x.Type == "Id").Value ?? "";
+        var userEmail = user.Claims.FirstOrDefault(x => x.Type == "Email").Value ?? "";
+        var userDisplayName = user.Claims.FirstOrDefault(x => x.Type == "DisplayName").Value ?? ""; }
+
+
+
+    <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+        <div class="d-flex align-items-center flex-wrap mr-1">
+            <div class="d-flex align-items-baseline flex-wrap mr-5">
+                <h5 class="text-dark font-weight-bold my-1 mr-5" style="color: #ce3d9d!important;">@ViewBag.Title</h5>
+                <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                    <li class="breadcrumb-item">
+                        <a href="" class="text-muted">@ViewBag.ParentCode</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="" class="text-muted">@ViewBag.SubTitle</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <a class="btn btn-clean kt-margin-r-10 BackConfirmation">
+                <i class="la la-arrow-left"></i>
+                <span class="kt-hidden-mobile">Back</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class="container">
+            <div class="card card-custom">
+                <div class="card-body p-0">
+                    <!--begin: Wizard-->
+                    <div class="wizard wizard-3" id="kt_wizard_v3" data-wizard-state="step-first" data-wizard-clickable="true">
+                        <!--begin: Wizard Nav-->
+                        <div class="wizard-nav">
+                            <div class="wizard-steps px-8 py-8 px-lg-15 py-lg-3">
+                                <!--begin::Wizard Step 1 Nav-->
+                                <div class="wizard-step" data-wizard-type="step" data-wizard-state="current">
+                                    <div class="wizard-label">
+                                        <h3 class="wizard-title">
+                                            <span>1.</span> Step
+                                        </h3>
+                                        <div class="wizard-bar"></div>
+                                    </div>
+                                </div>
+                                <!--end::Wizard Step 1 Nav-->
+                                <!--begin::Wizard Step 2 Nav-->
+                                <div class="wizard-step" data-wizard-type="step" data-wizard-state="pending">
+                                    <div class="wizard-label">
+                                        <h3 class="wizard-title">
+                                            <span>2.</span> Step
+                                        </h3>
+                                        <div class="wizard-bar"></div>
+                                    </div>
+                                </div>
+                                <!--end::Wizard Step 2 Nav-->
+                                <!--begin::Wizard Step 3 Nav-->
+                                <div class="wizard-step" data-wizard-type="step" data-wizard-state="pending">
+                                    <div class="wizard-label">
+                                        <h3 class="wizard-title">
+                                            <span>3.</span> Step
+                                        </h3>
+                                        <div class="wizard-bar"></div>
+                                    </div>
+                                </div>
+                                <!--end::Wizard Step 3 Nav-->
+                                <!--begin::Wizard Step 4 Nav-->
+                                <div class="wizard-step" data-wizard-type="step" data-wizard-state="pending">
+                                    <div class="wizard-label">
+                                        <h3 class="wizard-title">
+                                            <span>4.</span> Payment
+                                        </h3>
+                                        <div class="wizard-bar"></div>
+                                    </div>
+                                </div>
+                                <!--end::Wizard Step 4 Nav-->
+                            </div>
+                        </div>
+                        <!--end: Wizard Nav-->
+                        <!--begin: Wizard Body-->
+                        <div class="row justify-content-center py-10 px-8 py-lg-12 px-lg-10">
+                            <div class="col-md-10">
+                                <!--begin: Wizard Form-->
+                                <form class="form" id="kt_form">
+                                    <!--begin: Wizard Step 1-->
+                                    <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+                                        @*<h4 class="mb-10 font-weight-bold text-dark">Setup Your Current Location</h4>*@
+                                        <div class="dropzone dropzone-default" id="kt_dropzone_1">
+                                            <div class="dropzone-msg dz-message needsclick">
+                                                <span data-v-1409128e="" class="block feather-icon select-none relative"><svg data-v-1409128e="" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload-cloud h-16 w-16 stroke-current text-grey"><polyline data-v-1409128e="" points="16 16 12 12 8 16"></polyline><line data-v-1409128e="" x1="12" y1="12" x2="12" y2="21"></line><path data-v-1409128e="" d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path><polyline data-v-1409128e="" points="16 16 12 12 8 16"></polyline></svg></span>
+                                                <h3 class="dropzone-msg-title" style="color: #bf007f">
+                                                    Advanced Electronic Signature
+                                                </h3>
+                                                <p>
+                                                    Keep the original document and add a signature sheet to the end of the document. <br />
+                                                    Drag or select your document.
+                                                </p>
+
+                                                @*<span class="dropzone-msg-desc">
+                                This is just a demo dropzone. Selected files are
+                                <strong>not</strong>actually uploaded.
+                        </span>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end: Wizard Step 1-->
+                                    <!--begin: Wizard Step 2-->
+                                    <div class="pb-5" data-wizard-type="step-content">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <h2>Preview Pending</h2>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="row ConfirmationDiv">
+                                                    <h4 class="mb-10 font-weight-bold text-dark">Will you be a signatory of this document?</h4>
+                                                    <span class="form-text text-muted">Indicate if you want to add yourself as a signer in this document.</span>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="hidden" class=" userDisplayName" value="@userDisplayName" />
+                                                            <input type="hidden" class=" userEmail" value="@userEmail" />
+                                                            <button type="button" class="btn btn-success IsSignatory font-weight-bolder text-uppercase px-9 py-4">Yes</button>
+                                                        </div>
+                                                        <div class="col-md-1"></div>
+                                                        <div class="col-md-4">
+                                                            <button type="button" class="btn btn-danger font-weight-bolder text-uppercase px-9 py-4">No</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row SignerDiv" style="margin-top:10px;display:none">
+                                                    <h4 class="mb-10 font-weight-bold text-dark">Add Signers</h4>
+                                                    <span class="form-text text-muted">Enter the name and email of the people who will sign the document.</span>
+
+                                                    <div class="col-md-5">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control form-required Name" name="FullName" placeholder="Full Name" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-5">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control form-required Email" name="Email" placeholder="Email" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        <button type="button" class="btn btn-success IsAppendSignersList font-weight-bolder text-uppercase px-9 py-4">Add</button>
+                                                    </div>
+
+                                                    <div class="row" style="margin-top:10px">
+                                                        <div class="col-md-12 draggable-zone SignersListAppendDiv">
+
+                                                        </div>
+
+                                                        <button type="button" style=" margin-left: 400px; margin-top: 15px;" class="btn btn-primary IsOpenViewersDiv font-weight-bolder text-uppercase px-9 py-4">Add Viewers</button>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row ViewersDiv" style="margin-top:10px">
+                                                    <h4 class="mb-10 font-weight-bold text-dark">Add Viewers</h4>
+                                                    <span class="form-text text-muted">Enter the name and email of the people who will sign the document.</span>
+
+                                                    <div class="col-md-5">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control form-required-viewers ViewerName" name="FullName" placeholder="Full Name" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-5">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control form-required-viewers ViewerEmail" name="Email" placeholder="Email" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        <button type="button" class="btn btn-success font-weight-bolder text-uppercase px-9 py-4 IsAppendViewersList">Add</button>
+                                                    </div>
+
+                                                    <div class="row" style="margin-top:10px">
+                                                        <div class="col-md-12 draggable-zone ViewersListAppendDiv">
+
+
+                                                            <!--end::Card-->
+
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--end: Wizard Step 2-->
+                                    <!--begin: Wizard Step 3-->
+                                    <div class="pb-5" data-wizard-type="step-content">
+
+
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <h2 class="font-weight-bold text-dark">Important:</h2>
+                                                <p>Check the document and the signers before sending the invitations, as everyone will be notified. Once the document is signed, it cannot be modified.</p>
+                                                <h2 class="font-weight-bold text-dark">Reminders:</h2>
+                                                <p>3 signing reminders will be sent every 3 days, at 12:30 pm.</p>
+
+                                            </div>
+                                            <div class="col-6">
+                                                <h2 class="font-weight-bold text-dark">Document details</h2>
+                                                <p>Document Name: </p>
+                                                <h5 class="font-weight-bold text-primary">Signatories</h5>
+
+                                                <div class="row" style="margin-top:10px">
+                                                    <div class="col-md-12 draggable-zone SignersShowListAppendDiv">
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <h5 class="font-weight-bold text-primary" style="margin-top:10px">Viewers</h5>
+
+                                                <div class="row" style="margin-top:10px">
+                                                    <div class="col-md-12 draggable-zone ViewersShowListAppendDiv">
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end: Wizard Step 3-->
+                                    <!--begin: Wizard Step 4-->
+                                    <div class="pb-5" data-wizard-type="step-content">
+                                        <h4 class="mb-10 font-weight-bold text-dark">Setup Your Delivery Location</h4>
+                                        <div class="my-5">
+
+                                            <div class="row">
+                                                <div class="col-xl-6">
+
+                                                    <!--begin::Input-->
+                                                    <div class="form-group">
+                                                        <label>Amount: </label><label class="AmountCalculated"></label> MXN
+                                                        <input type="hidden" class="Total" />
+                                                        <span class="form-text text-muted">Auto Calculated.</span>
+                                                    </div>
+                                                    <!--end::Input-->
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--end: Wizard Step 4-->
+                                    <!--begin: Wizard Actions-->
+                                    <div class="d-flex justify-content-between">
+                                        <div class="mr-2">
+                                            <button type="button" class="btn btn-light-primary font-weight-bolder text-uppercase px-9 py-4" data-wizard-type="action-prev">Previous</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-success font-weight-bolder Submit text-uppercase px-9 py-4" data-wizard-type="action-submit">Submit</button>
+                                            <button type="button" style=" margin-left: 80px!important;" class="btn btn-primary font-weight-bolder NextId text-uppercase px-9 py-4" data-wizard-type="action-next">Next</button>
+                                        </div>
+                                    </div>
+                                    <!--end: Wizard Actions-->
+                                </form>
+
+                                <!--end: Wizard Form-->
+                            </div>
+                        </div>
+                        <!--end: Wizard Body-->
+                    </div>
+                    <!--end: Wizard-->
+                </div>
+            </div>
+        </div>
+        <!--end::Container-->
+    </div>
+
+
+
+    <script src="~/Metronic1/assets/plugins/global/plugins.bundle.js" type="text/javascript"></script>
+    <script src="~/Metronic1/assets/js/scripts.bundle.js" type="text/javascript"></script>
+    <script src="~/Metronic1/assets/js/pages/widgets.js" type="text/javascript"></script>
+    <script src="~/Metronic1/assets/plugins/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
+    <script src="~/Metronic1/assets/js/pages/custom/wizard/wizard-3.js"></script>
+    <script src="~/Metronic1/assets/js/pages/crud/file-upload/dropzonejs.js"></script>
+    <script src="~/Metronic1/assets/plugins/custom/draggable/draggable.bundle.js"></script>
+    <script src="~/Metronic1/assets/js/pages/features/cards/draggable.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var message = $("#DataSavedMessage").val();
+        if ($("#IsDataSaved").val() == "true") {
+            DataSavedAlert(message);
+        }
+        else if ($("#IsDataSaved").val() == "false") {
+            ErrorAlert(message);
+        }
+    });
+
+
+
+        $(document).on('click', '.Submit', function () {
+            SubmitFunction();
+        });
+
+
+        function SubmitFunction() {
+            var FileName = $(".dz-filename span").text();
+            var Total = $(".Total").val();
+
+            var Object = new FormData;
+            var i = 0;
+
+            //SignersList Add Work
+            var SignersListAppendDiv = $('div .SubSignersListAppendDiv');
+            SignersListAppendDiv.each(function () {
+                debugger;
+                var SignatureName = $(this).find(".SigantureNameHidden").val();
+                var SignatureEmail = $(this).find(".SigantureEmailHidden").val();
+
+                Object.append("SignersList[" + i + "].SignatureName", SignatureName);
+                Object.append("SignersList[" + i + "].SignatureEmail", SignatureEmail);
+                i++;
+            });
+
+            //ViewersList Add Work
+             i = 0;
+            var ViewersListAppendDiv = $('div .SubViewersListAppendDiv');
+            ViewersListAppendDiv.each(function () {
+
+                var ViewerName = $(this).find(".ViewerNameHidden").val();
+                var ViewerEmail = $(this).find(".ViewerEmailHidden").val();
+
+                Object.append("ViewersList[" + i + "].ViewerName", ViewerName);
+                Object.append("ViewersList[" + i + "].ViewerEmail", ViewerEmail);
+                i++;
+            });
+
+            Object.append("FileName", FileName);
+            Object.append("Total", Total);
+
+
+            ////.........................Signers.....................//
+            //Object.append("SignersList.SignatureName", SignatureName);
+            //Object.append("SignersList.SignatureEmail", SignatureEmail);
+
+            ////.........................Signers.....................//
+            //Object.append("ViewersList.ViewerName", ViewerName);
+            //Object.append("ViewersList.ViewerEmail", ViewerEmail);
+
+
+            $.ajax({
+            type: "POST",
+            url: '@Url.Action("CreateNew")',
+            data: Object,
+            processData: false,
+            contentType: false,
+                success: function (response) {
+                $('.btn').prop('disabled', false);
+                if (response.result == 'Redirect')
+                    window.location = response.url;
+            },
+            error: function (result) {
+                ErrorAlert("null");
+            }
+        });
+
+            return false;
+
+        }
+
+
+
+
+        $(document).on('click', '.RemoveRowSigners', function () {
+            var tr = $(this).closest('.SubSignersListAppendDiv');
+
+            swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then(function (result) {
+                if (result.value) {
+                    tr.remove();
+
+                }
+                else if (result.dismiss === 'cancel') {
+
+                }
+            });
+        });
+
+
+    $(document).on("submit", ".ImportDataForm", function (e) {
+        var SaleQuotation = new FormData;
+        var File = $(".ExcelFile").get(0).files[0];
+        SaleQuotation.append("File.FileWrapper", File);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("_ImportSaleQuotation")",
+            data: SaleQuotation,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $(".ImportedDataTable").html(data);
+            }
+        });
+        e.stopImmediatePropagation();
+        return false;
+    });
+
+
+    $('.DeleteConfirmationAccount').click(function (e) {
+        var AccountId = $(".IdHidden").val();
+        var Operation = $(this).val();
+        var btn = $(this);
+        swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then(function (result) {
+            if (result.value) {
+                AjaxCallGetAccount(AccountId, Operation, btn);
+            }
+            else if (result.dismiss === 'cancel') {
+
+            }
+        });
+    });
+
+
+
+        // Signers
+
+        $(document).ready(function () {
+            $(".SignerDiv").hide()
+            $(".ViewersDiv").hide()
+        });
+
+
+        $(document).on('click', '.IsNotSignatory', function () {
+            $(".SignerDiv").show()
+            $(".ConfirmationDiv").hide()
+            $(".ViewersDiv").hide()
+        });
+
+    $(document).on('click', '.IsSignatory', function () {
+        FirstSignatureRowAppend();
+        $(".SignerDiv").show()
+        $(".ConfirmationDiv").hide()
+        $(".ViewersDiv").hide()
+    });
+
+        $(document).on('click', '.IsOpenViewersDiv', function () {
+            $(".ViewersDiv").show()
+            $(".ConfirmationDiv").hide()
+            $(".SignerDiv").hide()
+        });
+
+
+
+        function FirstSignatureRowAppend() {
+        var FirstName = null;
+        var SignatureName = $('.userDisplayName').val();
+        var SignatureEmail = $('.userEmail').val();
+        if (SignatureName != null) {
+            SignatureName = SignatureName.toUpperCase();
+            FirstName = SignatureName[0];
+        }
+            var TableElements = '<div class="card card-custom draggable SubSignersListAppendDiv"><input type="hidden" value="' + SignatureName + '" class="SigantureNameHidden"> <input type="hidden" value="' + SignatureEmail +'" class="SigantureEmailHidden"> <div class="card-header draggable-handle"> <div class="card-title"> <span style="margin-right:5px" class="symbol symbol-lg-35 symbol-25 symbol-light-success"> <span class="symbol-label font-size-h5 font-weight-bold">' + FirstName + '</span> </span> <h3 class="card-label">' + SignatureName + '<br /> <small>' + SignatureEmail + '</small> </h3> </div> <div class="card-toolbar"> <a href="#" class="btn btn-icon RemoveRowSigners btn-sm btn-hover-light-primary"> <i class="ki ki-close icon-nm"></i> </a> </div> </div> </div>'
+            $(".SignersListAppendDiv").append(TableElements);
+
+            var TableShowElements = '<div class="card card-custom draggable SubSignersShowListAppendDiv"> <div class="card-header draggable-handle"> <div class="card-title"> <span style="margin-right:5px" class="symbol symbol-lg-35 symbol-25 symbol-light-success"> <span class="symbol-label font-size-h5 font-weight-bold">' + FirstName + '</span> </span> <h3 class="card-label">' + SignatureName + '<br /> <small>' + SignatureEmail + '</small> </h3> </div>  </div> </div>'
+            $(".SignersShowListAppendDiv").append(TableShowElements);
+
+        FocusEvent();
+
+        }
+
+        $(document).on('click', '.IsAppendSignersList', function () {
+            RowAppend();
+        });
+
+
+    function validateForm() {
+        var isValid = true;
+        $('.form-required').each(function () {
+            if ($(this).val() === '')
+                isValid = false;
+        });
+        return isValid;
+        }
+
+
+
+
+    //IsAppendSignersList
+
+    function RowAppend() {
+         if (validateForm()) {
+             var SignatureName = $(".Name").val();
+             var SignatureEmail = $(".Email").val();
+             if (SignatureName != null) {
+                 SignatureName = SignatureName.toUpperCase();
+                 FirstName = SignatureName[0];
+             }
+
+            $(".SignatureEmail")
+             var TableElements = '<div class="card card-custom draggable SubSignersListAppendDiv"><input type="hidden" value="' + SignatureName + '" class="SigantureNameHidden"> <input type="hidden" value="' + SignatureEmail +'" class="SigantureEmailHidden">  <div class="card-header draggable-handle"> <div class="card-title"> <span style="margin-right:5px" class="symbol symbol-lg-35 symbol-25 symbol-light-success"> <span class="symbol-label font-size-h5 font-weight-bold">'+FirstName+'</span> </span> <h3 class="card-label">' + SignatureName + '<br /> <small>' + SignatureEmail + '</small> </h3> </div> <div class="card-toolbar"> <a href="#" class="btn btn-icon RemoveRowSigners btn-sm btn-hover-light-primary"> <i class="ki ki-close icon-nm"></i> </a> </div> </div> </div>'
+             $(".SignersListAppendDiv").append(TableElements);
+
+             var TableShowElements = '<div class="card card-custom draggable SubSignersShowListAppendDiv"> <div class="card-header draggable-handle"> <div class="card-title"> <span style="margin-right:5px" class="symbol symbol-lg-35 symbol-25 symbol-light-success"> <span class="symbol-label font-size-h5 font-weight-bold">' + FirstName + '</span> </span> <h3 class="card-label">' + SignatureName + '<br /> <small>' + SignatureEmail + '</small> </h3> </div>  </div> </div>'
+             $(".SignersShowListAppendDiv").append(TableShowElements);
+            FocusEvent();
+          }
+        }
+
+
+
+        // Viewers
+
+        $(document).on('click', '.IsAppendViewersList', function () {
+            RowAppendViewers();
+        });
+
+        function validateFormViewers() {
+            var isValid = true;
+            $('.form-required-viewers').each(function () {
+                if ($(this).val() === '')
+                    isValid = false;
+            });
+            return isValid;
+        }
+
+        //IsAppendSignersList
+
+        function RowAppendViewers() {
+            if (validateFormViewers()) {
+                var SignatureName = $(".ViewerName").val();
+                var SignatureEmail = $(".ViewerEmail").val();
+                if (SignatureName != null) {
+                    SignatureName = SignatureName.toUpperCase();
+                    FirstName = SignatureName[0];
+                }
+                //$(".SignatureEmail")
+                var TableElements = '<div class="card card-custom draggable SubViewersListAppendDiv"><input type="hidden" value="' + SignatureName + '" class="ViewerNameHidden"> <input type="hidden" value="' + SignatureEmail +'" class="ViewerEmailHidden">   <div class="card-header draggable-handle"> <div class="card-title"> <span style="margin-right:5px" class="symbol symbol-lg-35 symbol-25 symbol-light-success"> <span class="symbol-label font-size-h5 font-weight-bold">' + FirstName + '</span> </span> <h3 class="card-label">' + SignatureName + '<br /> <small>' + SignatureEmail + '</small> </h3> </div> <div class="card-toolbar"> <a href="#" class="btn btn-icon RemoveRowViewers btn-sm btn-hover-light-primary"> <i class="ki ki-close icon-nm"></i> </a> </div> </div> </div>'
+                $(".ViewersListAppendDiv").append(TableElements);
+
+                var TableShowElements = '  <div class="card card-custom draggable SubViewersListAppendDiv"><input type="hidden" value="' + SignatureName + '" class="ViewerNameHidden"> <input type="hidden" value="' + SignatureEmail + '" class="ViewerEmailHidden"> <div class="card-header draggable-handle"> <div class="card-title"> <span style="margin-right:5px" class="symbol symbol-lg-35 symbol-25 symbol-light-success"> <span class="symbol-label font-size-h5 font-weight-bold">' + FirstName + '</span> </span> <h3 class="card-label">' + SignatureName + '<br /> <small>' + SignatureEmail + '</small> </h3> </div> </div> </div>'
+                $(".ViewersShowListAppendDiv").append(TableShowElements);
+                FocusEvent();
+            }
+        }
+
+        $(document).on('click', '.RemoveRowViewers', function () {
+           
+            var tr = $(this).closest('.SubViewersListAppendDiv');
+
+            swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then(function (result) {
+                if (result.value) {
+                    tr.remove();
+
+                }
+                else if (result.dismiss === 'cancel') {
+
+                }
+            });
+        });
+
+
+
+    </script>
+
+
+
+
+
+
