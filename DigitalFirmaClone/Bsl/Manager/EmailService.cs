@@ -99,6 +99,7 @@ namespace DigitalFirmaClone.Bsl.Manager
                 emailClient.Dispose();
 
                 return true;
+                return true;
             }
             catch (Exception ex)
             {
