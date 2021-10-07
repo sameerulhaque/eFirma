@@ -28,6 +28,7 @@ namespace DigitalFirmaClone.Helper
                     new Claim("Email", user.Email),
                     new Claim("DisplayName", user.FullName ?? user.Email),
                     new Claim("Avatar", user.Avatar ?? string.Empty),
+                    new Claim("Company", user.Company ?? string.Empty),
                 });
                 return principal;
             }

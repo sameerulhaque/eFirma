@@ -352,6 +352,8 @@ namespace DigitalFirmaClone.EF
                 entity.HasKey(e => e.user_id)
                     .HasName("PK_user");
 
+                entity.Property(e => e.company).HasColumnType("text");
+
                 entity.Property(e => e.created_date).HasColumnType("datetime");
 
                 entity.Property(e => e.email)

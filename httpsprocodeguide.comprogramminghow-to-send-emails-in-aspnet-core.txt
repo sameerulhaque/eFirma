@@ -1,0 +1,1 @@
+https://procodeguide.com/programming/how-to-send-emails-in-aspnet-core/

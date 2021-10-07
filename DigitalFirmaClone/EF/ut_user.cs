@@ -30,6 +30,7 @@ namespace DigitalFirmaClone.EF
         public int? is_approved { get; set; }
         public int? is_locked { get; set; }
         public string remarks { get; set; }
+        public string company { get; set; }
 
         public virtual ICollection<ut_user_role> ut_user_role { get; set; }
     }

@@ -1,0 +1,212 @@
+﻿@*@model IEnumerable<DigitalFirmaClone.Models.GetSignature>*@
+
+<div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+    <div class="d-flex align-items-center flex-wrap mr-1">
+        <div class="d-flex align-items-baseline flex-wrap mr-5">
+            <div class="col-md-12">
+                <h5 class="text-dark font-weight-bold my-1 mr-5" style="color: #ce3d9d!important;">@ViewBag.Title</h5>
+            </div>
+            <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                <li class="breadcrumb-item">
+                    <a href="" class="text-muted">@ViewBag.ParentCode</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="" class="text-muted">@ViewBag.SubTitle</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="d-flex align-items-center">
+        <a class="btn btn-clean kt-margin-r-10 BackConfirmation">
+            <i class="la la-arrow-left"></i>
+            <span class="kt-hidden-mobile">Back</span>
+        </a>
+    </div>
+</div>
+
+
+<div class="d-flex flex-column-fluid">
+    <!--begin::Container-->
+    @*<h3>PDF Validator</h3>*@
+    <div class="container">
+        <div class="col-md-12">
+            <p>
+                Validate your signed documents in PDF format according to the Pages standard (ISO 32001) and verify that the signature is authentic.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="modal_datatable_local_source" class="">
+
+    <form class="form" id="kt_form">
+
+        <div class="row">
+
+            <div class="col-md-8">
+
+
+                @*--------------------------Form 01 ---------------------*@
+
+                <div class="pb-5 Certificate" data-wizard-type="step-content" data-wizard-state="current">
+                    <div class="dropzone dropzone-default" style="border:1px solid lightgray" id="Certificate">
+                        <h4 style="margin-right: 380px;" class="mb-10 font-weight-bold text-dark">1. Enter your .cer Certificate</h4>
+
+                        <div class="dropzone-msg dz-message needsclick" style="border: purple; border-style: dotted; padding: 20px;">
+                            <span data-v-1409128e="" class="block feather-icon select-none relative"><svg data-v-1409128e="" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload-cloud h-16 w-16 stroke-current text-grey"><polyline data-v-1409128e="" points="16 16 12 12 8 16"></polyline><line data-v-1409128e="" x1="12" y1="12" x2="12" y2="21"></line><path data-v-1409128e="" d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path><polyline data-v-1409128e="" points="16 16 12 12 8 16"></polyline></svg></span>
+                            <h3 class="dropzone-msg-title" style="color: #bf007f">
+                                Drag or select your PDF file
+                            </h3>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                @*--------------------------Form 02 ---------------------*@
+
+                <div class="pb-5 PrivateKey" data-wizard-type="step-content" data-wizard-state="current">
+                    <div class="dropzone dropzone-default" style="border: 1px solid lightgray" id="PrivateKey">
+                        <h4 style="margin-right: 410px;" class="mb-10 font-weight-bold text-dark">2. Enter your Private Key</h4>
+
+                        <div class="dropzone-msg dz-message needsclick" style="border: purple; border-style: dotted; padding: 20px;">
+                            <span data-v-1409128e="" class="block feather-icon select-none relative"><svg data-v-1409128e="" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload-cloud h-16 w-16 stroke-current text-grey"><polyline data-v-1409128e="" points="16 16 12 12 8 16"></polyline><line data-v-1409128e="" x1="12" y1="12" x2="12" y2="21"></line><path data-v-1409128e="" d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path><polyline data-v-1409128e="" points="16 16 12 12 8 16"></polyline></svg></span>
+                            <h3 class="dropzone-msg-title" style="color: #bf007f">
+                                Drag or select your PDF file
+                            </h3>
+
+                            @*<span class="dropzone-msg-desc">
+                                        This is just a demo dropzone. Selected files are
+                                        <strong>not</strong>actually uploaded.
+                                </span>*@
+                        </div>
+                    </div>
+                </div>
+
+                @*<button class="Clicksss"></button>*@
+
+
+                @*--------------------------Form 03 ---------------------*@
+
+
+                <div class="col-md-12 form-group dropzone dropzone-default" style="border: 1px solid lightgray">
+                    <h4 style="margin-right: 350px;" class="mb-10 font-weight-bold text-dark">3. Enter your e.firma password</h4>
+                    <input class="form-control form-control-solid h-auto py-4 px-6 rounded-lg font-size-h6 password" type="password" placeholder="Password" />
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+                    <div class="dropzone dropzone-default" style="border: 1px solid lightgray">
+                        <h4 class="mb-10 font-weight-bold text-dark">Signature of the document</h4>
+                        <p>
+                            It is important that you review the document before signing.
+
+                            This process modifies your original document by adding the necessary elements for this signature format.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
+                    <div class="dropzone dropzone-default" style="border: 1px solid lightgray">
+                        <h4 class="mb-10 font-weight-bold text-dark">Information</h4>
+                        <p>
+                            The data entered will not be stored, nor used for any other process.
+
+                            When signing the document, all the data will be sent by a secure server and the data will be protected.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    <button type="button" style="margin-top:15px" class="btn btn-primary font-weight-bolder PerviousBtn text-uppercase px-9 py-4" data-wizard-type="action-submit">Pervious</button>
+                </div>
+
+                <div class="col-md-4">
+
+                </div>
+
+                <div class="col-md-2">
+                    <button type="button" style="margin-top:15px" class="btn btn-warning font-weight-bolder SignBtn text-uppercase px-9 py-4" data-wizard-type="action-submit">Sign</button>
+                </div>
+
+                <div class="col-md-4">
+
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+<script src="~/Metronic1/assets/plugins/global/plugins.bundle.js" type="text/javascript"></script>
+<script src="~/Metronic1/assets/js/scripts.bundle.js" type="text/javascript"></script>
+<script src="~/Metronic1/assets/plugins/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
+<script src="~/Metronic1/assets/js/pages/crud/file-upload/dropzonejs.js"></script>
+
+<script type="text/javascript">
+
+
+    $(document).on('click', '.SignBtn', function () {
+        debugger;
+        Submit();
+    });
+
+
+    function GetDetails() {
+        debugger;
+        var Certificate = $(".Certificate").find(".dz-filename span").text();
+        var PrivateKey = $(".PrivateKey").find(".dz-filename span").text();
+        var password = $(".password").val();
+
+        var Object = {
+
+            "key": Certificate,
+            "cer": PrivateKey,
+            "password": password,
+        }
+        return Object;
+    }
+
+    function Submit() {
+        var file = GetDetails();
+        debugger;
+        $.ajax({
+            url: '@Url.Action("signDocument")',
+            type: "POST",
+            data: { file },
+            success: function (StringifyData) {
+                debugger;
+                console.log(StringifyData);
+                if (StringifyData.DataSaved == false) {
+                    ErrorAlert(StringifyData.Message == null ? "null" : StringifyData.Message);
+                }
+                else {
+                    DataSavedAlert("null");
+                    IdHidden.val(StringifyData.Id);
+                }
+            },
+            error: function (result) {
+                ErrorAlert("null");
+            }
+        });
+
+    }
+
+</script>

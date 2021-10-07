@@ -1,6 +1,4 @@
-﻿@model IEnumerable<DigitalFirmaClone.Models.APIClasses.GetSignature>
-
-<div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+﻿<div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
     <div class="d-flex align-items-center flex-wrap mr-1">
         <div class="d-flex align-items-baseline flex-wrap mr-5">
             <h5 class="text-dark font-weight-bold my-1 mr-5" style="color: #ce3d9d!important;">@ViewBag.Title</h5>
@@ -44,15 +42,12 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.attributes.sign_status</td>
-                    <td>@item.attributes.file_name</td>
-                    <td>@item.attributes.signed_at</td>
-                    <td></td>
-                </tr>
-            }
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
 
@@ -77,21 +72,9 @@
             "pageLength": 5,
 
             "ajax": {
-                "url": "/PayRollUtilities/_GetAllShift",
+                "url": "/Signature/_GetAllSignedSignatures",
                 "type": "POST",
                 "datatype": "json"
-            },
-            //Header Main CheckBox
-            select: {
-                style: 'multi',
-                selector: 'td:first-child .kt-checkable',
-            },
-            headerCallback: function (thead, data, start, end, display) {
-                thead.getElementsByTagName('th')[0].innerHTML = `
-                    <label class="kt-checkbox kt-checkbox--single kt-checkbox--solid kt-checkbox--brand">
-                        <input type="checkbox" value="" class="kt-group-checkable">
-                        <span></span>
-                    </label>`;
             },
 
             layout: {
@@ -112,32 +95,31 @@
             //Assign 0 index to be check box
             columnDefs: [
                 {
-                    targets: 0,
-                    orderable: false,
-                    render: function (data, type, full, meta) {
-                        return `
-                        <label class="kt-checkbox kt-checkbox--single kt-checkbox--solid kt-checkbox--brand">
-                            <input type="checkbox" value="" class="kt-checkable">
-                            <span></span>
-                        </label>`;
-                    },
                 },
             ],
             "columns": [
-                { "data": "Id", "name": "Id", "autoWidth": true },
-                { "data": "Id", "name": "Id", "autoWidth": true },
-                { "data": "OutTimeString", "title": "OutTime", "name": "OutTimeString", "autoWidth": true },
                 {
-                    "data": "Id",
+                    "data": "attributes.signStatus",
                     "render": function (data, type, row) {
+                        var ConcatString = "<span style='border-radius:20px;margin: 2px;' class='btn btn-" + row.attributes.signStatusColor + "'>" + row.attributes.signStatus + "</span>";
+                        return ConcatString;
+                    },
+                    "name": "attributes.signStatus", "autoWidth": true
+                },
+                { "data": "attributes.file_name", "title": "Document", "name": "attributes.file_name", "autoWidth": true },
+                { "data": "attributes.created_at", "title": "Date", "name": "attributes.created_at", "autoWidth": true },
+                {
+                    "data": "id",
+                    "render": function (data, type, row) {
+                        debugger;
                         var ConcatString = '<button value="TREE" title="VIEW" data-dismiss="modal" class="btn btn-elevate btn-pill btn-outline-info MarginRight TableOperations"><i class="la la-eye"></i></button> <input type="hidden" value="' + data + '" class="IdHidden" />';
                         return ConcatString;
                     },
-                    "name": "Id", "autoWidth": true
+                    "name": "id", "autoWidth": true
                 },
             ]
         });
-
+        
         table.columns().eq(0).each(function (colIdx) {
             $('input', table.column(colIdx).footer()).on('keyup change', function () {
                 table.column(colIdx)

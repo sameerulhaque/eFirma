@@ -25,7 +25,8 @@ namespace DigitalFirmaClone.Bsl.Manager
                     Id = x.user_id,
                     PassWord = x.password,
                     Email = x.email,
-                    FullName = x.user_name
+                    FullName = x.user_name,
+                    Company = x.company,
                 }).FirstOrDefault();
 
                 return ut_user;
@@ -45,7 +46,8 @@ namespace DigitalFirmaClone.Bsl.Manager
                     Id = x.user_id,
                     PassWord = x.password,
                     Email = x.email,
-                    FullName = x.user_name
+                    FullName = x.user_name,
+                    Company = x.company,
                 }).FirstOrDefault();
                 return (ut_user ?? new EmployeeModel()).Id != 0 ? ut_user : null;
             }
@@ -64,7 +66,9 @@ namespace DigitalFirmaClone.Bsl.Manager
                     Id = x.user_id,
                     PassWord = x.password,
                     Email = x.email,
-                    FullName = x.user_name
+                    FullName = x.user_name,
+                    Company = x.company,
+
                 }).FirstOrDefault();
                 return (ut_user ?? new EmployeeModel()).Id != 0 ? ut_user : null;
             }
@@ -82,13 +86,15 @@ namespace DigitalFirmaClone.Bsl.Manager
                 var ut_user = dbContext.ut_user.Where(x => x.email == appUser.Email && (string.IsNullOrEmpty(appUser.AuthenticationType) ? x.remarks != "GOOGLE" : x.remarks == "GOOGLE")).FirstOrDefault();
                 if (ut_user == null)
                 {
+
                     ut_user ut_User = new ut_user();
-                    ut_User.user_name = appUser.Name;
+                    ut_User.user_name = appUser.Name ?? "";
                     var hashedProvidedPassword = Utils.Utils.GetMd5x2(appUser.PassWord);
-                    ut_User.password = hashedProvidedPassword;
-                    ut_User.show_password = appUser.PassWord;
-                    ut_User.email = appUser.Email;
-                    ut_User.remarks = appUser.AuthenticationType;
+                    ut_User.password = hashedProvidedPassword ?? "";
+                    ut_User.show_password = appUser.PassWord ?? "";
+                    ut_User.email = appUser.Email ?? "";
+                    ut_User.remarks = appUser.AuthenticationType ?? "";
+                    ut_User.company = appUser.Company ?? "";
                     ut_User.import_user_id = "";
                     ut_User.mobile = "";
                     dbContext.ut_user.Add(ut_User);

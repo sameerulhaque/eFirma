@@ -34,5 +34,6 @@ namespace DigitalFirmaClone.Bsl.Model
         public bool IsAuthenticated { get; set; }
 
         public string Name { get; set; }
+        public string Company { get; internal set; }
     }
 }

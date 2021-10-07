@@ -129,7 +129,7 @@
                                                         </div>
                                                         <div class="col-md-1"></div>
                                                         <div class="col-md-4">
-                                                            <button type="button" class="btn btn-danger font-weight-bolder text-uppercase px-9 py-4">No</button>
+                                                            <button type="button" class="btn btn-danger NoButton font-weight-bolder text-uppercase px-9 py-4">No</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -158,7 +158,7 @@
 
                                                         </div>
 
-                                                        <button type="button" style=" margin-left: 400px; margin-top: 15px;" class="btn btn-primary IsOpenViewersDiv font-weight-bolder text-uppercase px-9 py-4">Add Viewers</button>
+                                                        <button type="button" style=" margin-left: 400px; margin-top: 15px;" class="btn btn-primary IsOpenViewersDiv font-weight-bolder text-uppercase px-9 py-4">Viewers</button>
 
                                                     </div>
 
@@ -243,7 +243,7 @@
                                     <!--end: Wizard Step 3-->
                                     <!--begin: Wizard Step 4-->
                                     <div class="pb-5" data-wizard-type="step-content">
-                                        <h4 class="mb-10 font-weight-bold text-dark">Setup Your Delivery Location</h4>
+                                        <h4 class="mb-10 font-weight-bold text-dark">Net Amount To Pay</h4>
                                         <div class="my-5">
 
                                             <div class="row">
@@ -388,6 +388,7 @@
 
         $(document).on('click', '.RemoveRowSigners', function () {
             var tr = $(this).closest('.SubSignersListAppendDiv');
+            var trShow = $(this).closest('.SubSignersShowListAppendDiv');
 
             swal.fire({
                 title: 'Are you sure?',
@@ -400,7 +401,7 @@
             }).then(function (result) {
                 if (result.value) {
                     tr.remove();
-
+                    trShow.remove();
                 }
                 else if (result.dismiss === 'cancel') {
 
@@ -479,6 +480,14 @@
             $(".SignerDiv").hide()
         });
 
+        $(document).on('click', '.NoButton', function () {
+            $(".ViewersDiv").hide()
+            $(".ConfirmationDiv").hide()
+            $(".SignerDiv").show()
+        });
+
+
+        
 
 
         function FirstSignatureRowAppend() {
@@ -564,8 +573,8 @@
                     SignatureName = SignatureName.toUpperCase();
                     FirstName = SignatureName[0];
                 }
-                //$(".SignatureEmail")
-                var TableElements = '<div class="card card-custom draggable SubViewersListAppendDiv"><input type="hidden" value="' + SignatureName + '" class="ViewerNameHidden"> <input type="hidden" value="' + SignatureEmail +'" class="ViewerEmailHidden">   <div class="card-header draggable-handle"> <div class="card-title"> <span style="margin-right:5px" class="symbol symbol-lg-35 symbol-25 symbol-light-success"> <span class="symbol-label font-size-h5 font-weight-bold">' + FirstName + '</span> </span> <h3 class="card-label">' + SignatureName + '<br /> <small>' + SignatureEmail + '</small> </h3> </div> <div class="card-toolbar"> <a href="#" class="btn btn-icon RemoveRowViewers btn-sm btn-hover-light-primary"> <i class="ki ki-close icon-nm"></i> </a> </div> </div> </div>'
+                debugger;
+                var TableElements = '<div class="card card-custom draggable SubViewersListAppendDiv"><input type="hidden" value="' + SignatureName + '" class="ViewerNameHidden"> <input type="hidden" value="' + SignatureEmail + '" class="ViewerEmailHidden">   <div class="card-header draggable-handle"> <div class="card-title"> <span style="margin-right:5px" class="symbol symbol-lg-35 symbol-25 symbol-light-success"> <span class="symbol-label font-size-h5 font-weight-bold">' + FirstName + '</span> </span> <h3 class="card-label">' + SignatureName + '<br /> <small>' + SignatureEmail + '</small> </h3> </div> <div class="card-toolbar"> <a href="#" class="btn btn-icon RemoveRowViewers btn-sm btn-hover-light-primary"> <i class="ki ki-close icon-nm"></i> </a> </div> </div> </div>'
                 $(".ViewersListAppendDiv").append(TableElements);
 
                 var TableShowElements = '  <div class="card card-custom draggable SubViewersListAppendDiv"><input type="hidden" value="' + SignatureName + '" class="ViewerNameHidden"> <input type="hidden" value="' + SignatureEmail + '" class="ViewerEmailHidden"> <div class="card-header draggable-handle"> <div class="card-title"> <span style="margin-right:5px" class="symbol symbol-lg-35 symbol-25 symbol-light-success"> <span class="symbol-label font-size-h5 font-weight-bold">' + FirstName + '</span> </span> <h3 class="card-label">' + SignatureName + '<br /> <small>' + SignatureEmail + '</small> </h3> </div> </div> </div>'
@@ -577,6 +586,7 @@
         $(document).on('click', '.RemoveRowViewers', function () {
            
             var tr = $(this).closest('.SubViewersListAppendDiv');
+            var trShow = $(this).closest('.SubSignersShowListAppendDiv');
 
             swal.fire({
                 title: 'Are you sure?',
@@ -589,7 +599,7 @@
             }).then(function (result) {
                 if (result.value) {
                     tr.remove();
-
+                    trShow.remove();
                 }
                 else if (result.dismiss === 'cancel') {
 

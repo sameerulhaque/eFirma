@@ -14,5 +14,6 @@ namespace DigitalFirmaClone.Bsl.Model
         public string Email { get; set; }
         public DateTime CreatedDate { get; set; }
         public string Avatar { get; set; }
+        public string Company { get;  set; }
     }
 }

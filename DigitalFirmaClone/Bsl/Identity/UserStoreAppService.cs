@@ -50,7 +50,8 @@ namespace DigitalFirmaClone.Bsl.Identity
                     PassWord = employee.PassWord,
                     Email = employee.Email,
                     FullName = employee.FullName,
-                    Avatar = employee.Avatar
+                    Avatar = employee.Avatar,
+                    Company = employee.Company,
                 };
                 return appUser;
             }
@@ -72,7 +73,8 @@ namespace DigitalFirmaClone.Bsl.Identity
                     PassWord = employee.PassWord,
                     Email = employee.Email,
                     FullName = employee.FullName,
-                    Avatar = employee.Avatar
+                    Avatar = employee.Avatar,
+                    Company = employee.Company,
                 };
                 return appUser;
             }
@@ -98,7 +100,8 @@ namespace DigitalFirmaClone.Bsl.Identity
                     PassWord = employee.PassWord,
                     Email = employee.Email,
                     FullName = employee.FullName,
-                    Avatar = employee.Avatar
+                    Avatar = employee.Avatar,
+                    Company = employee.Company,
                 };
                 return appUser;
             }
@@ -117,12 +120,12 @@ namespace DigitalFirmaClone.Bsl.Identity
                     PassWord = employee.PassWord,
                     Email = employee.Email,
                     FullName = employee.FullName,
-                    Avatar = employee.Avatar
+                    Avatar = employee.Avatar,
+                    Company = employee.Company,
                 };
                 return appUser;
             }
             return new AppUser();
-            return null;
         }
 
         public Task<string> GetEmailAsync(AppUser user, CancellationToken cancellationToken)

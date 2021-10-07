@@ -101,7 +101,7 @@
 
             //Print Buttons
             buttons: [
-                
+
             ],
 
             //Assign 0 index to be check box
@@ -110,9 +110,16 @@
                 },
             ],
             "columns": [
-                { "data": "signStatus", "title": "Sign Status", "name": "signStatus", "autoWidth": true },
-                { "data": "documentName", "title": "Document", "name": "documentName", "autoWidth": true },
-                { "data": "createDateString", "title": "Date", "name": "createDateString", "autoWidth": true },
+                {
+                    "data": "attributes.signStatus",
+                    "render": function (data, type, row) {
+                        var ConcatString = "<span style='border-radius:20px;margin: 2px;' class='btn btn-" + row.attributes.signStatusColor + "'>" + row.attributes.signStatus + "</span>";
+                        return ConcatString;
+                    },
+                    "name": "attributes.signStatus", "autoWidth": true
+                },
+                { "data": "attributes.file_name", "title": "Document", "name": "attributes.file_name", "autoWidth": true },
+                { "data": "attributes.created_at", "title": "Date", "name": "attributes.created_at", "autoWidth": true },
                 {
                     "data": "id",
                     "render": function (data, type, row) {

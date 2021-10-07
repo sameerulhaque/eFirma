@@ -70,7 +70,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <!--begin::Signin-->
                         <div class="login-form login-signin py-11">
                             <!--begin::Form-->
-                            <form class="form-signin" method="post" asp-action="Login">
+                            <form class="form-signin" id="kt_login_signin_form" method="post" asp-action="Login">
                                 <!--begin::Title-->
                                 <div class="text-center pb-8">
                                     <h2 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Sign In</h2>
@@ -110,7 +110,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <!--begin::Signup-->
                         <div class="login-form login-signup pt-11">
                             <!--begin::Form-->
-                            <form class="form" novalidate="novalidate" id="kt_login_signup_form">
+                            <form class="form" novalidate="novalidate" id="kt_login_signup_form" method="post" asp-action="Login">
                                 <!--begin::Title-->
                                 <div class="text-center pb-8">
                                     <h2 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Sign Up</h2>
@@ -119,23 +119,23 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <!--end::Title-->
                                 <!--begin::Form group-->
                                 <div class="form-group">
-                                    <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="text" placeholder="Fullname" name="fullname" autocomplete="off" />
+                                    <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6 UserName" type="text" placeholder="Fullname" />
                                 </div>
                                 <!--end::Form group-->
                                 <!--begin::Form group-->
                                 <div class="form-group">
-                                    <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="email" placeholder="Email" name="email" autocomplete="off" />
+                                    <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6 Email" type="email" placeholder="Email"/>
                                 </div>
                                 <!--end::Form group-->
                                 <!--begin::Form group-->
                                 <div class="form-group">
-                                    <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="password" placeholder="Password" name="password" autocomplete="off" />
+                                    <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6 PassWord" type="password" placeholder="Password" />
                                 </div>
                                 <!--end::Form group-->
                                 <!--begin::Form group-->
-                                <div class="form-group">
-                                    <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="password" placeholder="Confirm password" name="cpassword" autocomplete="off" />
-                                </div>
+                                @*<div class="form-group">
+                                    <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6 ShowPassword" type="password" placeholder="Confirm password" />
+                                </div>*@
                                 <!--end::Form group-->
                                 <!--begin::Form group-->
                                 <div class="form-group">
@@ -243,3 +243,54 @@ License: You must have a valid license purchased only from themeforest(the above
 </body>
 <!--end::Body-->
 </html>
+
+
+<script>
+
+
+    function GetCustomerDetails() {
+        debugger;
+        var UserName = $(".UserName").val();
+        var Email = $(".Email").val();
+        var PassWord = $(".PassWord").val();
+
+        var Object = {
+
+            "UserName": UserName,
+            "Email": Email,
+            "PassWord": PassWord,
+        }
+        return Object;
+    }
+
+    function Submit() {
+        var appUser = GetCustomerDetails();
+        debugger;
+        $.ajax({
+            url: '@Url.Action("CreateAccount")',
+            type: "POST",
+            data: { appUser },
+            success: function (StringifyData) {
+                debugger;
+                console.log(StringifyData);
+                if (StringifyData.DataSaved == false) {
+                    ErrorAlert(StringifyData.Message == null ? "null" : StringifyData.Message);
+                }
+                else {
+                    DataSavedAlert("null");
+                    IdHidden.val(StringifyData.Id);
+                }
+            },
+            error: function (result) {
+                ErrorAlert("null");
+            }
+        });
+
+    }
+
+
+
+    $(document).on("click", "#kt_login_signup_submit",  function (e) {
+        Submit();
+    });
+</script>

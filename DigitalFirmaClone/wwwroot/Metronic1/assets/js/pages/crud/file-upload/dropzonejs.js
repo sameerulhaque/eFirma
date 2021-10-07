@@ -21,9 +21,27 @@ var KTDropzoneDemo = function () {
             }
         });
 
+
         // multiple file upload
-        $('#kt_dropzone_2').dropzone({
-            url: "/Signature/ValidatorUploadElement", // Set the url for your upload script location
+        $('#Certificate').dropzone({
+            url: "/Signature/CertificateUploadElement", // Set the url for your upload script location
+            paramName: "file", // The name that will be used to transfer the file
+            maxFiles: 10,
+            maxFilesize: 10, // MB
+            addRemoveLinks: true,
+            accept: function (file, done) {
+                debugger;
+                if (file.name == "justinbieber.jpg") {
+                    done("Naha, you don't.");
+                } else {
+                    done();
+                }
+            }
+        });
+
+        // multiple file upload
+        $('#PrivateKey').dropzone({
+            url: "/Signature/PrivateKeyUploadElement", // Set the url for your upload script location
             paramName: "file", // The name that will be used to transfer the file
             maxFiles: 10,
             maxFilesize: 10, // MB

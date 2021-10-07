@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using DigitalFirmaClone.Models.EmailConfigurationModel;
 
 namespace DigitalFirmaClone
 {
@@ -40,6 +41,7 @@ namespace DigitalFirmaClone
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddIdentity<AppUser, AppRole>().AddDefaultTokenProviders();
@@ -89,6 +91,7 @@ namespace DigitalFirmaClone
             services.AddTransient<IUserStore<AppUser>, UserStoreAppService>();
             services.AddTransient<ISignatureManager, SignatureManager>();
             services.AddTransient<IRoleStore<AppRole>, RoleAppService>();
+            services.AddTransient<IEmailService, EmailService>();
             services.AddScoped<IPasswordHasher<AppUser>, PasswordHasherOverride<AppUser>>();
             services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipal>();
