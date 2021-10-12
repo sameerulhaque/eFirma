@@ -24,7 +24,6 @@ namespace DigitalFirmaClone.EF
         public string remarks { get; set; }
         public int form_code_id { get; set; }
 
-        public virtual sdfghjk form_code_ { get; set; }
         public virtual ICollection<ut_user_role> ut_user_role { get; set; }
     }
 }

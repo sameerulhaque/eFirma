@@ -56,6 +56,7 @@ namespace DigitalFirmaClone.Controllers
             if (appUser == null)
             {
                 ModelState.AddModelError("FileNameValidation", "Account does not exist.");
+                model.ExternalLogins = await _signInManager.GetExternalAuthenticationSchemesAsync();
                 return View(model);
             }
 

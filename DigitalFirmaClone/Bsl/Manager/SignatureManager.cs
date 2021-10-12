@@ -126,18 +126,18 @@ namespace DigitalFirmaClone.Bsl.Manager
             {
                 sig_signature Signature = new sig_signature();
 
-                Signature.document_string = signature.DocumentString;
-                Signature.auth = signature.Auth;
-                Signature.document_name = signature.FileName;
-                Signature.paypal_id = signature.PaypalId;
-                Signature.company_id = signature.CompanyId;
-                Signature.sign_ordered = signature.SignOrdered;
-                Signature.mode_logo = signature.ModeLogo;
-                Signature.remember_at = signature.RememberAt;
+                Signature.document_string = signature.DocumentString ?? "";
+                Signature.auth = signature.Auth ?? "";
+                Signature.document_name = signature.FileName ?? "";
+                Signature.paypal_id = signature.PaypalId ?? "";
+                Signature.company_id = signature.CompanyId ?? "";
+                Signature.sign_ordered = signature.SignOrdered ?? "";
+                Signature.mode_logo = signature.ModeLogo ?? "";
+                Signature.remember_at = signature.RememberAt ?? "";
                 Signature.remember_every = signature.RememberEvery == 0 ? null : signature.RememberEvery;
-                Signature.sign_mode = signature.SignMode;
-                Signature.sign_position = signature.SignPosition;
-                Signature.tries = signature.Tries;
+                Signature.sign_mode = signature.SignMode ?? "";
+                Signature.sign_position = signature.SignPosition ?? "";
+                Signature.tries = signature.Tries ?? "";
 
                 foreach (var item in signature.SignersList)
                 {
@@ -166,10 +166,7 @@ namespace DigitalFirmaClone.Bsl.Manager
                 dbContext.SaveChanges();
 
                 Signature Signaturess = new Signature();
-                Signaturess.PaypalId = Signature.paypal_id;
-
-                Signaturess = GetSignatureById(Signaturess);
-
+                Signaturess.Id = Signature.signature_id;
                 return Signaturess;
             }
             catch (Exception ex)

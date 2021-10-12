@@ -66,7 +66,8 @@ namespace DigitalFirmaClone
             });
 
             var connection = Configuration.GetSection("ConnectionStrings").GetValue<string>("ConnectionString");
-            services.AddDbContext<EF.ecommerceContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<EF.ecommerceContext>(options => options.UseMySQL(connection));
+            //services.AddDbContext<EF.ecommerceContext>(options => options.UseSqlServer(connection));
 
             services.ConfigureApplicationCookie(options =>
             {

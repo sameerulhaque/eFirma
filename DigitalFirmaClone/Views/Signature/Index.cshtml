@@ -51,15 +51,6 @@
                 <td></td>
                 <td></td>
             </tr>
-            @*@foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.attributes.sign_status</td>
-                    <td>@item.attributes.file_name</td>
-                    <td>@item.attributes.signed_at</td>
-                    <td></td>
-                </tr>
-            }*@
         </tbody>
     </table>
 
@@ -111,15 +102,15 @@
             ],
             "columns": [
                 {
-                    "data": "attributes.signStatus",
+                    "data": "signStatus",
                     "render": function (data, type, row) {
-                        var ConcatString = "<span style='border-radius:20px;margin: 2px;' class='btn btn-" + row.attributes.signStatusColor + "'>" + row.attributes.signStatus + "</span>";
+                        var ConcatString = "<span style='border-radius:20px;margin: 2px;' class='btn btn-" + row.signStatusColor + "'>" + row.signStatus + "</span>";
                         return ConcatString;
                     },
-                    "name": "attributes.signStatus", "autoWidth": true
+                    "name": "signStatus", "autoWidth": true
                 },
-                { "data": "attributes.file_name", "title": "Document", "name": "attributes.file_name", "autoWidth": true },
-                { "data": "attributes.created_at", "title": "Date", "name": "attributes.created_at", "autoWidth": true },
+                { "data": "fileName", "title": "Document", "name": "fileName", "autoWidth": true },
+                { "data": "fileName", "title": "Date", "name": "fileName", "autoWidth": true },
                 {
                     "data": "id",
                     "render": function (data, type, row) {

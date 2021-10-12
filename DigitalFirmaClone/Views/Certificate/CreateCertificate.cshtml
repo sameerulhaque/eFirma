@@ -68,7 +68,7 @@
 
                 @*--------------------------Form 02 ---------------------*@
 
-                <div class="pb-5 PrivateKey" data-wizard-type="step-content" data-wizard-state="current">
+                <!--<div class="pb-5 PrivateKey" data-wizard-type="step-content" data-wizard-state="current">
                     <div class="dropzone dropzone-default" style="border: 1px solid lightgray" id="PrivateKey">
                         <h4 style="margin-right: 410px;" class="mb-10 font-weight-bold text-dark">2. Enter your Private Key</h4>
 
@@ -76,15 +76,15 @@
                             <span data-v-1409128e="" class="block feather-icon select-none relative"><svg data-v-1409128e="" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload-cloud h-16 w-16 stroke-current text-grey"><polyline data-v-1409128e="" points="16 16 12 12 8 16"></polyline><line data-v-1409128e="" x1="12" y1="12" x2="12" y2="21"></line><path data-v-1409128e="" d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path><polyline data-v-1409128e="" points="16 16 12 12 8 16"></polyline></svg></span>
                             <h3 class="dropzone-msg-title" style="color: #bf007f">
                                 Drag or select your PDF file
-                            </h3>
+                            </h3>-->
 
                             @*<span class="dropzone-msg-desc">
                                         This is just a demo dropzone. Selected files are
                                         <strong>not</strong>actually uploaded.
                                 </span>*@
-                        </div>
+                        <!--</div>
                     </div>
-                </div>
+                </div>-->
 
                 @*<button class="Clicksss"></button>*@
 
@@ -92,11 +92,11 @@
                 @*--------------------------Form 03 ---------------------*@
 
 
-                <div class="col-md-12 form-group dropzone dropzone-default" style="border: 1px solid lightgray">
+                @*<div class="col-md-12 form-group dropzone dropzone-default" style="border: 1px solid lightgray">
                     <h4 style="margin-right: 350px;" class="mb-10 font-weight-bold text-dark">3. Enter your e.firma password</h4>
                     <input class="form-control form-control-solid h-auto py-4 px-6 rounded-lg font-size-h6 password" type="password" placeholder="Password" />
 
-                </div>
+                </div>*@
 
             </div>
 
@@ -177,20 +177,20 @@
 
         var Object = {
 
-            "key": Certificate,
-            "cer": PrivateKey,
+            "CertificateFileName": Certificate,
+            "PrivateKey": PrivateKey,
             "password": password,
         }
         return Object;
     }
 
     function Submit() {
-        var file = GetDetails();
+        var certificate = GetDetails();
         debugger;
         $.ajax({
-            url: '@Url.Action("signDocument")',
+            url: '@Url.Action("CreateCertificate")',
             type: "POST",
-            data: { file },
+            data: { certificate },
             success: function (StringifyData) {
                 debugger;
                 console.log(StringifyData);
