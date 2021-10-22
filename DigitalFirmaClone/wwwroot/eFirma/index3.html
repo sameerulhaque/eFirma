@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--===============================================================================================-->
+  <link rel="icon" type="image/png" href="images/icons/red.jpeg"/>
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="css/util.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <!--===============================================================================================-->
+</head>
+<body>
+
+  <nav class="navbar navbar-light" style="margin-bottom: 5px;background-color: #f7f7f7;box-shadow: -5px 3px 8px">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">
+        <img src="images/logo_1.jpeg" alt="" width="145px" height="40px">
+      </a>
+
+      <form class="d-flex">
+        <div class="action">
+        <div class="profile" onclick="menuToggle();">
+          <img id="proPic" src="/user.png" alt="" >
+        </div>
+        <div class="profileMenu">
+          <img id="proPicCopy" class="proCopy" src="" alt="">
+          <h4 class="profileName">Jone</h4>
+          <h4 >Jone@gmail.com</h4>
+          <ul>
+            <li><i class="fa fa-medkit"></i><a href="index5.html">Setting</a></li>
+            <li><i class="fa fa-sign-out"></i><a href="index.html">Sing Out</a></li>
+          </ul>
+        </div>
+      </div>
+      </form>
+    </div>
+  </nav>
+
+  <section class="inputSection">
+    <div class="inputContainer">
+      <div class="drag-area">
+        <div class="icon">
+          <i class="fa fa-file-pdf-o"></i>
+        </div>
+
+        <span class="header"> Drag & Drop </span>
+        <span class="header"> or <span class="button">browse</span> </span>
+        <input type="file" hidden/>
+        <span class="support">Supports: PDF</span>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="">
+      <div class="tblTop">
+        <div class="row" style="margin: auto;">
+          <div class="searchSection">
+            <i class="fa fa-search"></i>
+            <input id="searchBox" type="text" class="searchBox" placeholder="Look For">
+          </div>
+
+          <div class="tabs">
+            <span id="everyBody" class="menu"><i class="fa fa-folder"></i> Everybody</span>
+            <span id="inProgress" class="menu"><i class="fa fa-ellipsis-h"></i> In progress</span>
+            <span id="signed" class="menu"><i class="fa fa-check"></i> Signed</span>
+            <span id="archived" class="menu"><i class="fa fa-bookmark"></i> Archived</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bottomSection">
+
+        <section id="everyBodySection">
+          <table class="table" style="width: 91%;margin: auto">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Document Name</th>
+                    <th>Signatories</th>
+                    <th>Created</th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr>
+                    <td>IN PROGRESS</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>
+                        <button class="btnTbl">Manage</button><select class="btnTbl" name="cars">
+                            <option value="plus">Plus</option>
+                            <option value="saab">Saab</option>
+                            <option value="mercedes">Mercedes</option>
+                            <option value="audi">Audi</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>IN PROGRESS</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>Sample</td>
+                    <td>
+                        <button class="btnTbl">Manage</button>
+                        <select class="btnTbl" name="cars">
+                            <option value="plus">Plus</option>
+                            <option value="saab">Saab</option>
+                            <option value="mercedes">Mercedes</option>
+                            <option value="audi">Audi</option>
+                        </select>
+                    </td>
+                </tr>
+
+            </tbody>
+          </table>
+        </section>
+
+        <section id="inProgressSection">
+          <table class="table" style="width: 91%;margin: auto">
+            <thead>
+            <th>Status</th>
+            <th>Document Name</th>
+            <th>Signatories</th>
+            <th>Created</th>
+
+            </thead>
+            <tbody >
+            <tr>
+              <td>IN PROGRESS</td>
+              <td>Sample</td>
+              <td>Sample</td>
+              <td>Sample</td>
+              <td><button  class="btnTbl">Manage</button><select class="btnTbl" name="cars" >
+                <option value="plus">Plus</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+              </td>
+
+            </tr>
+            <tr>
+              <td>IN PROGRESS</td>
+              <td>Sample</td>
+              <td>Sample</td>
+              <td>Sample</td>
+              <td><button class="btnTbl">Manage</button><select class="btnTbl" name="cars" >
+                <option value="plus">Plus</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+              </td>
+
+            </tr>
+            <tr>
+              <td>IN PROGRESS</td>
+              <td>Sample</td>
+              <td>Sample</td>
+              <td>Sample</td>
+              <td><button class="btnTbl">Manage</button><select class="btnTbl" name="cars" >
+                <option value="plus">Plus</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+              </td>
+
+            </tr>
+            <tr>
+              <td>IN PROGRESS</td>
+              <td>Sample</td>
+              <td>Sample</td>
+              <td>Sample</td>
+              <td><button class="btnTbl">Manage</button><select class="btnTbl" name="cars" >
+                <option value="plus">Plus</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+              </td>
+
+            </tr>
+
+            </tbody>
+          </table>
+        </section>
+
+        <section id="signedSection">
+          <table class="table" style="width: 91%;margin: auto">
+            <thead>
+            <th>Status</th>
+            <th>Document Name</th>
+            <th>Signatories</th>
+            <th>Created</th>
+
+            </thead>
+            <tbody >
+            <tr>
+              <td>IN PROGRESS</td>
+              <td>Sample</td>
+              <td>Sample</td>
+              <td>Sample</td>
+              <td><button  class="btnTbl">Manage</button><select class="btnTbl" name="cars" >
+                <option value="plus">Plus</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+              </td>
+
+            </tr>
+
+            </tbody>
+          </table>
+        </section>
+
+        <section id="archivedSection">
+          <table class="table" style="width: 91%;margin: auto">
+            <thead>
+            <th>Status</th>
+            <th>Document Name</th>
+            <th>Signatories</th>
+            <th>Created</th>
+
+            </thead>
+            <tbody >
+            <tr>
+              <td>IN PROGRESS</td>
+              <td>Sample</td>
+              <td>Sample</td>
+              <td>Sample</td>
+              <td><button id="btnManage" class="btnTbl">Manage</button><select class="btnTbl" name="cars" >
+                <option value="plus">Plus</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+              </td>
+
+            </tr>
+            <tr>
+              <td>IN PROGRESS</td>
+              <td>Sample</td>
+              <td>Sample</td>
+              <td>Sample</td>
+              <td><button class="btnTbl">Manage</button><select class="btnTbl" name="cars" >
+                <option value="plus">Plus</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+              </td>
+
+            </tr>
+            <tr>
+              <td>IN PROGRESS</td>
+              <td>Sample</td>
+              <td>Sample</td>
+              <td>Sample</td>
+              <td><button  class="btnTbl">Manage</button><select class="btnTbl" name="cars" >
+                <option value="plus">Plus</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+              </td>
+
+            </tr>
+
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+  </div>
+
+  <div id="homeModel" class="modal-bg">
+    <div class="modal">
+      <span id="model-close" class="model-close">X</span>
+      <div class="container-login100">
+        <div class="wrap-login100">
+          <form class="modalSideB">
+            <h3 class="doc1">Document Setting</h3>
+            <label class="documentNameLbl" for="documentName">DOCUMENT NAME</label>
+            <input id="documentName" type="text" class="documentNameTxt" placeholder="test file.PDF">
+            <hr>
+            <span class="doc3">Are You going to sing this document ? </span>
+            <label class="switch">
+              <input id="toggleCheckBox" type="checkbox">
+            <span id="btnToggle" class="slider round"></span></label>
+            <button onauxclick="docBtn" style="background-color: #EE332D;color: white" class="modalBtn"><a href="index4.html">CONTINUE</a></button>
+            <button class="modalBtn">CANCEL</button>
+          </form>
+
+          <div class="modalSideA">
+            <h4 class="doc2">This is a Document</h4>
+            <div class="pdfSection">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--===============================================================================================-->
+  <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/animsition/js/animsition.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/bootstrap/js/popper.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/select2/select2.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/daterangepicker/moment.min.js"></script>
+  <script src="vendor/daterangepicker/daterangepicker.js"></script>
+  <!--===============================================================================================-->
+  <script src="vendor/countdowntime/countdowntime.js"></script>
+  <!--===============================================================================================-->
+  <script src="js/main.js"></script>
+</body>
+</html>

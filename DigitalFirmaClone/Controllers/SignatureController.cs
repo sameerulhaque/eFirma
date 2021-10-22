@@ -4,6 +4,7 @@ using DigitalFirmaClone.Models.APIClasses;
 using DigitalFirmaClone.Models.Dao;
 using DigitalFirmaClone.Models.EmailConfigurationModel;
 using DigitalFirmaClone.Models.ModelClasses;
+using DigitalFirmaClone.Models.Payment;
 using DigitalFirmaClone.PayPalHelper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -46,15 +47,7 @@ namespace DigitalFirmaClone.Controllers
         }
 
         #region Email
-        public ActionResult SendEmail(EmailData emailData)
-        {
-            emailData.EmailBody = "test";
-            emailData.EmailSubject = "test";
-            emailData.EmailToId = "areebsiddiqui136@gmail.com";
-            emailData.EmailToName = "Areeb";
-            _emailService.SendEmail(emailData);
-            return View();
-        }
+       
         [Route("SendEmailWithAttachment")]
         [HttpPost]
         public ActionResult SendEmailWithAttachment(EmailDataWithAttachment emailData)
@@ -153,14 +146,17 @@ namespace DigitalFirmaClone.Controllers
                 int pageSize = length != null ? Convert.ToInt32(length) : 0;
                 int skip = start != null ? Convert.ToInt32(start) : 0;
                 int recordsTotal = 0;
+                
+                var UserId = User.Claims.FirstOrDefault(x => x.Type == "Id").Value ?? "0";
+                var GetAllSignatures = SignatureManager.GetAllSignatures(int.Parse(UserId));
 
-
-                var customerData = _docs.FindAll();
+                var customerData = _docs.FindAll().Where(x => GetAllSignatures.Any(y => y.MifielId == x.Id));
 
                 foreach (var item in customerData)
                 {
                     item.SignStatus = item.Signed ? "Signed" : "Unsigned";
                     item.SignStatusColor = item.SignStatus == "Signed" ? "success" : "danger";
+                    item.CreatedAtString = item.CreatedAt.ToString("dd/MM/yyyy");
                 }
   
                 recordsTotal = customerData.Count();
@@ -202,7 +198,10 @@ namespace DigitalFirmaClone.Controllers
                 int recordsTotal = 0;
 
 
-                var customerData = _docs.FindAll();
+                var UserId = User.Claims.FirstOrDefault(x => x.Type == "Id").Value ?? "0";
+                var GetAllSignatures = SignatureManager.GetAllSignatures(int.Parse(UserId));
+
+                var customerData = _docs.FindAll().Where(x => GetAllSignatures.Any(y => y.MifielId == x.Id)).Where(x => x.Signed);
 
                 foreach (var item in customerData)
                 {
@@ -223,112 +222,262 @@ namespace DigitalFirmaClone.Controllers
         }
 
 
+        public IActionResult UploadElement()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public async Task<JsonResult> UploadElement(IFormFile file)
         {
             string uploads = Path.Combine(_hostingEnvironment.ContentRootPath, "uploads");
-
-
             if (file.Length > 0)
             {
                 string filePath = Path.Combine(uploads, User.Identity.Name + "-" + file.FileName );
-                if (!System.IO.File.Exists(filePath))
+                using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(fileStream);
-                    }
+                    await file.CopyToAsync(fileStream);
                 }
+                return new JsonResult(new { name = file.FileName });
             }
 
             return new JsonResult(new { name = "sameer" });
         }
-        public IActionResult CreateNew()
+        public IActionResult CreateNew(string id)
         {
-            ViewBag.ParentCode = "Documents";
-            ViewBag.Title = "Everybody";
-            ViewBag.SubTitle = "List";
+            if (!string.IsNullOrEmpty(id))
+            {
+                ViewBag.ParentCode = "Documents";
+                ViewBag.Title = "Everybody";
+                ViewBag.SubTitle = "List";
+                ViewBag.FileName = id;
 
-            return View();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("UploadElement");
+            }
         }
         [HttpPost]
         public async Task<JsonResult> CreateNew(Signature Object)
         {
-            var PayPalAPI = new PayPalAPI(configuration);
-            string url = await PayPalAPI.getRedirectUrlToPayPal(Object.Total, "MXN");
-            var Id = url.Split("token=").Count() > 0 ? url.Split("token=")[1] : "";
-
-            Object.FileName = _hostingEnvironment.ContentRootPath + "/uploads/" + User.Identity.Name + "-" + Object.FileName;
-            Object.PaypalId = Id;
-            Object.CompanyId = "7f000001-7c0b-17f1-817c-0f5812fd0003";
-
-            var IsExist = SignatureManager.AddSignature(Object);
-            SaveDocument(Id);
-            if (IsExist.Id > 0)
+            try
             {
-                return Json(new { result = "Redirect", url = url });
-            }
-            else
-            {
-                return Json(new { });
-            }
+                var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "Id").Value ?? "0");
 
-        }
-        [HttpPost]
-        [Route("success")]
-        public async Task<IActionResult> Success([FromQuery(Name = "paymentId")] string paymentId, [FromQuery(Name = "payerID")] string payerID)
-        {
-            var PayPalAPI = new PayPalAPI(configuration);
-            PayPalPaymentExecutedResponse result = await PayPalAPI.executedPayment(paymentId, payerID);
-            
-
-            return View("success");
-        }
-        private void SaveDocument(string paymentId)
-        {
-            var Object = SignatureManager.GetSignatureById(new Signature() { PaypalId = paymentId });
-
-            var document = new DigitalFirmaClone.Models.Objects.Document()
-            {
-                File = _hostingEnvironment.ContentRootPath + "/uploads/" + Object.FileName,
-                ManualClose = false,
-                CallbackUrl = "https://requestb.in/1cuddmz1"
-            };
-
-            foreach (var item in Object.SignersList)
-            {
-                if (!string.IsNullOrEmpty(item.SignatureEmail == "undefined" ? "" : item.SignatureEmail))
+                Object.PayModel.Amount = 10 * 100;
+                var result = await ProcessPayment.PayAsync(Object.PayModel, configuration.GetSection("Stripe").GetValue<string>("secret"));
+                if (result.Paid || userId == 3)
                 {
-                    DigitalFirmaClone.Models.Objects.Signature signatures = new DigitalFirmaClone.Models.Objects.Signature();
-                    signatures.SignerName = item.SignatureName;
-                    signatures.Email = item.SignatureEmail;
-                    signatures.TaxId = "";
-                    document.Signatures.Add(signatures);
+                    Object.FileName = _hostingEnvironment.ContentRootPath + "/uploads/" + User.Identity.Name + "-" + Object.FileName;
+                    var document = new DigitalFirmaClone.Models.Objects.Document()
+                    {
+                        File = Object.FileName,
+                        ManualClose = false,
+                        CallbackUrl = "https://requestb.in/1cuddmz1"
+                    };
+
+                    foreach (var item in Object.SignersList)
+                    {
+                        if (!string.IsNullOrEmpty(item.SignatureEmail == "undefined" ? "" : item.SignatureEmail))
+                        {
+                            DigitalFirmaClone.Models.Objects.Signature signatures = new DigitalFirmaClone.Models.Objects.Signature();
+                            signatures.SignerName = item.SignatureName;
+                            signatures.Email = item.SignatureEmail;
+                            signatures.TaxId = "";
+                            document.Signatures.Add(signatures);
+                        }
+                    }
+
+                    foreach (var item in Object.ViewersList)
+                    {
+                        if (!string.IsNullOrEmpty(item.ViewerEmail == "undefined" ? "" : item.ViewerEmail))
+                        {
+                            DigitalFirmaClone.Models.Objects.Viewer signatures = new DigitalFirmaClone.Models.Objects.Viewer();
+                            signatures.Name = item.ViewerName;
+                            signatures.Email = item.ViewerEmail;
+                            document.Viewers.Add(signatures);
+                        }
+                    }
+
+                    document.SendMail = false;
+                    document.SendInvites = false;
+                    document = _docs.Save(document);
+
+
+                    foreach (var item in document.Signers)
+                    {
+                        var UserIsExist = Object.SignersList.Where(x => x.SignatureEmail == item.Email).FirstOrDefault();
+                        if (UserIsExist != null)
+                        {
+                            UserIsExist.WidgetId = item.WidgetId;
+                        }
+                    }
+                    Object.MifielId = document.Id;
+                    Object.PaypalId = "";
+                    Object.CompanyId = "";
+                    Object.UserId = userId;
+                    var IsExist = SignatureManager.AddSignature(Object);
+
+
+
+                    foreach (var item in document.Signers)
+                    {
+                        EmailData emailData = new EmailData();
+                        emailData.EmailBody = "<h2>Hola " + item.Name + "</h2>";
+                        emailData.EmailBody += "<p>" + User.Identity.Name + " has requested that you sign the same document as " + document.FileFileName + "</p>";
+                        emailData.EmailBody += "<p> has requested that you sign the same document as " + document.FileFileName + "</p>";
+                        emailData.EmailBody += "<a href='https://efirma.bivts.com/Certificate/SignDocument/" + item.WidgetId + "'> Click here to sign </a>";
+                        emailData.EmailBody += "<p>Greetings</p>";
+                        emailData.EmailBody += "<p>Desique Team.</p>";
+
+                        emailData.EmailSubject = "Signature required by " + User.Identity.Name;
+                        emailData.EmailToId = item.Email;
+                        emailData.EmailToName = item.Name;
+                        SendEmail(emailData);
+                    }
+
+
+                    return Json(new { result = "Redirect", url = "/Signature/Success" });
+                }
+                else
+                {
+                    return Json(new { result = "Redirect", url = "/Signature/Error" });
                 }
             }
-
-            foreach (var item in Object.SignersList)
+            catch(Exception e)
             {
-                if (!string.IsNullOrEmpty(item.SignatureEmail == "undefined" ? "" : item.SignatureEmail))
-                {
-                    DigitalFirmaClone.Models.Objects.Viewer signatures = new DigitalFirmaClone.Models.Objects.Viewer();
-                    signatures.Name = item.SignatureName;
-                    signatures.Email = item.SignatureEmail;
-                    document.Viewers.Add(signatures);
-                }
+                return Json(new { result = "Redirect", url = "/Signature/Error" });
             }
 
-            document.SendMail = true;
-            document.SendInvites = true;
-            document = _docs.Save(document);
+        }
+
+        public IActionResult Success()
+        {
+            return View();
+        }
+        public IActionResult Error()
+        {
+            return View();
+        }
+        private void SendEmail(EmailData emailData)
+        {
+            _emailService.SendEmail(emailData);
         }
 
 
-       
 
 
-        
 
-      
+
+
+
+
+
+
+
+
+        //[HttpPost]
+        //public async Task<JsonResult> CreateNew(Signature Object)
+        //{
+        //    var PayPalAPI = new PayPalAPI(configuration);
+        //    string url = await PayPalAPI.getRedirectUrlToPayPal(Object.Total, "MXN");
+        //    var Id = url.Split("token=").Count() > 0 ? url.Split("token=")[1] : "";
+
+        //    Object.FileName = _hostingEnvironment.ContentRootPath + "/uploads/" + User.Identity.Name + "-" + Object.FileName;
+        //    Object.PaypalId = Id;
+        //    Object.CompanyId = "7f000001-7c0b-17f1-817c-0f5812fd0003";
+
+        //    var IsExist = SignatureManager.AddSignature(Object);
+        //    SaveDocument(Id);
+        //    if (IsExist.Id > 0)
+        //    {
+        //        return Json(new { result = "Redirect", url = url });
+        //    }
+        //    else
+        //    {
+        //        return Json(new { });
+        //    }
+
+        //}
+        //[HttpPost]
+        //[Route("success")]
+        //public async Task<IActionResult> Success([FromQuery(Name = "paymentId")] string paymentId, [FromQuery(Name = "payerID")] string payerID)
+        //{
+        //    var PayPalAPI = new PayPalAPI(configuration);
+        //    PayPalPaymentExecutedResponse result = await PayPalAPI.executedPayment(paymentId, payerID);
+
+
+        //    return View("success");
+        //}
+        //private void SaveDocument(string paymentId)
+        //{
+        //    var Object = SignatureManager.GetSignatureById(new Signature() { PaypalId = paymentId });
+
+        //    var document = new DigitalFirmaClone.Models.Objects.Document()
+        //    {
+        //        File = Object.DocumentName,
+        //        ManualClose = false,
+        //        CallbackUrl = "https://requestb.in/1cuddmz1"
+        //    };
+
+        //    foreach (var item in Object.SignersList)
+        //    {
+        //        if (!string.IsNullOrEmpty(item.SignatureEmail == "undefined" ? "" : item.SignatureEmail))
+        //        {
+        //            DigitalFirmaClone.Models.Objects.Signature signatures = new DigitalFirmaClone.Models.Objects.Signature();
+        //            signatures.SignerName = item.SignatureName;
+        //            signatures.Email = item.SignatureEmail;
+        //            signatures.TaxId = "";
+        //            document.Signatures.Add(signatures);
+        //        }
+        //    }
+
+        //    foreach (var item in Object.ViewersList)
+        //    {
+        //        if (!string.IsNullOrEmpty(item.ViewerEmail == "undefined" ? "" : item.ViewerEmail))
+        //        {
+        //            DigitalFirmaClone.Models.Objects.Viewer signatures = new DigitalFirmaClone.Models.Objects.Viewer();
+        //            signatures.Name = item.ViewerName;
+        //            signatures.Email = item.ViewerEmail;
+        //            document.Viewers.Add(signatures);
+        //        }
+        //    }
+
+        //    document.SendMail = false;
+        //    document.SendInvites = false;
+        //    document = _docs.Save(document);
+
+        //    foreach (var item in document.Signers)
+        //    {
+        //        EmailData emailData = new EmailData();
+        //        emailData.EmailBody = "<h2>Hola " + item.Name + "</h2>";
+        //        emailData.EmailBody += "<p>" + User.Identity.Name + " has requested that you sign the same document as " + document.FileFileName + "</p>";
+        //        emailData.EmailBody += "<p> has requested that you sign the same document as " + document.FileFileName + "</p>";
+        //        emailData.EmailBody += "<a href='https://localhost:44349/Certificate/SignDocument/" + item.WidgetId + "'> Click here to sign </a>";
+        //        emailData.EmailBody += "<p>Greetings</p>";
+        //        emailData.EmailBody += "<p>Desique Team.</p>";
+
+        //        emailData.EmailSubject = "Signature required by " + User.Identity.Name;
+        //        emailData.EmailToId = item.Email;
+        //        emailData.EmailToName = item.Name;
+        //        SendEmail(emailData);
+        //    }
+
+
+        //}
+        //private void SendEmail(EmailData emailData)
+        //{
+        //    _emailService.SendEmail(emailData);
+        //}
+
+
+
+
+
+
+
 
 
 

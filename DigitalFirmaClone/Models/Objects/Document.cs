@@ -17,6 +17,12 @@ namespace DigitalFirmaClone.Models.Objects
         public string OriginalHash { get; set; }
         [JsonProperty("name")]
         public string FileName { get; set; }
+
+        [JsonProperty("file_file_name")]
+        public string FileFileName { get; set; }
+
+        [JsonProperty("created_at")]
+        public DateTime CreatedAt { get; set; }
         [JsonProperty("signed_by_all")]
         public bool SignedByAll { get; set; }
         [JsonProperty("signed")]
@@ -55,5 +61,6 @@ namespace DigitalFirmaClone.Models.Objects
 
         public string SignStatus { get; set; }
         public string SignStatusColor { get; set; }
+        public string CreatedAtString { get; internal set; }
     }
 }

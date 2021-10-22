@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DigitalFirmaClone.Models.Payment;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,10 @@ namespace DigitalFirmaClone.Models.ModelClasses
         public int Id { get;  set; }
         public string SignStatus { get;  set; }
         public string CreateDateString { get;  set; }
+
+        public PayModel PayModel { get; set; }
+        public int UserId { get;  set; }
+        public string MifielId { get; internal set; }
 
         //public string DocumentString { get;  set; }
         //public string Auth { get;  set; }

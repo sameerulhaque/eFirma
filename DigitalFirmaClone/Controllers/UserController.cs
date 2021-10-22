@@ -33,11 +33,11 @@ namespace DigitalFirmaClone.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return Redirect("/Signature/Index");
+                return Redirect("/Signature/UploadElement");
             }
             LoginViewModel model = new LoginViewModel
             {
-                ReturnUrl = "/Signature/Index",
+                ReturnUrl = "/Signature/UploadElement",
                 ExternalLogins = await _signInManager.GetExternalAuthenticationSchemesAsync()
             };
             return View(model);
@@ -46,11 +46,6 @@ namespace DigitalFirmaClone.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
             model.Email = model.Email.Trim();
             var appUser = await _userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
             if (appUser == null)
@@ -63,26 +58,49 @@ namespace DigitalFirmaClone.Controllers
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false).ConfigureAwait(false);
             if (result.Succeeded)
             {
-                return Redirect("/Signature/Index");
+                return Redirect("/Signature/UploadElement");
             }
 
             ModelState.AddModelError("FileNameValidation", "Password does not match.");
             return View(model);
         }
-        //public async Task<IActionResult> Companies()
-        //{
-        //    APIResponse<List<CompanyData>> reservationList = new APIResponse<List<CompanyData>>();
-        //    using (var httpClient = new HttpClient())
-        //    {
-        //        httpClient.DefaultRequestHeaders.Add("X-Api-Key", "7f000001-7c29-16ef-817c-35be2d830017:b48222c13b3a9c6858f8598293f3caf5ec09a90b1f8e62c012c0042da019ea44");
-        //        using (var response = await httpClient.GetAsync("http://api.digitafirma.com/v1/companies"))
-        //        {
-        //            string apiResponse = await response.Content.ReadAsStringAsync();
-        //            reservationList = JsonConvert.DeserializeObject<APIResponse<List<CompanyData>>>(apiResponse);
-        //        }
-        //    }
-        //    return View(reservationList);
-        //}
+
+
+        [HttpGet]
+        public IActionResult CreateAccount()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAccount(AppUser appUser)
+        {
+            if (appUser != null)
+            {
+                var user = new AppUser
+                {
+                    Name = appUser.UserName,
+                    FullName = appUser.UserName,
+                    UserName = appUser.UserName,
+                    Email = appUser.Email,
+                    PassWord = appUser.PassWord,
+                };
+                //var CompanyData = await AddCompany(new Company() { Name = user.UserName });
+                //user.Company = CompanyData.id;
+                IUserManager.CreateAsync(user);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(appUser.Email, appUser.PassWord, true, lockoutOnFailure: false).ConfigureAwait(false);
+            if (result.Succeeded)
+            {
+                return Redirect("/Signature/UploadElement");
+            }
+
+            return Redirect("/Signature/Login");
+        }
+
+
+
 
         [AllowAnonymous]
         [HttpPost]
@@ -131,8 +149,8 @@ namespace DigitalFirmaClone.Controllers
                         PassWord = info.ProviderKey,
                         AuthenticationType = "GOOGLE"
                     };
-                    var CompanyData = await AddCompany(new Company() { Name = user.UserName });
-                    user.Company = CompanyData.id;
+                    //var CompanyData = await AddCompany(new Company() { Name = user.UserName });
+                    //user.Company = CompanyData.id;
                     IUserManager.CreateAsync(user);
                     
                 }
@@ -146,72 +164,10 @@ namespace DigitalFirmaClone.Controllers
         }
 
 
-
-        public async Task<IActionResult> CreateAccount(AppUser appUser)
-        {
-            if (appUser != null)
-            {
-                var user = new AppUser
-                {
-                    Name = appUser.UserName,
-                    FullName = appUser.UserName,
-                    UserName = appUser.UserName,
-                    Email = appUser.Email,
-                    PassWord = appUser.PassWord,
-                };
-                var CompanyData = await AddCompany(new Company() { Name = user.UserName });
-                user.Company = CompanyData.id;
-                IUserManager.CreateAsync(user);
-            }
-
-            var result = await _signInManager.PasswordSignInAsync(appUser.Email, appUser.PassWord, true, lockoutOnFailure: false).ConfigureAwait(false);
-            if (result.Succeeded)
-            {
-                return Redirect("/Signature/Index");
-            }
-
-            return Redirect("/Signature/Login");
-        }
+       
 
 
-        public async Task<CompanyData> AddCompany(Company file)
-        {
-
-            CompanyData receivedReservation = new CompanyData();
-            using (var httpClient = new HttpClient())
-            {
-                httpClient.DefaultRequestHeaders.Add("X-Api-Key", "7f000001-7c3d-192b-817c-4aa4bbb30009:d2a9e08e2cdbf21bc9d0d118b064ecc808f4f83a1cd58495875a59dfdeb29317");
-
-                CreateCompany createCompany = new CreateCompany();
-                if (file.Image != null)
-                {
-                    using (var fileStream = file.Image.OpenReadStream())
-                    {
-                        byte[] array = new byte[fileStream.Length];
-                        fileStream.Read(array, 0, array.Length);
-                        createCompany.logo = array;
-                    }
-                }
-                createCompany.name = file.Name;
-                StringContent content = new StringContent(JsonConvert.SerializeObject(createCompany), Encoding.UTF8, "application/json");
-
-                using (var response = await httpClient.PostAsync("http://api.digitafirma.com/v1/companies", content))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                    {
-                        var APIResponse = JsonConvert.DeserializeObject<APIResponse<List<CompanyData>>>(apiResponse);
-                        return APIResponse.data.LastOrDefault();
-                    }
-                    else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-                    {
-                        return new CompanyData();
-                    }
-                }
-            }
-            return new CompanyData();
-        }
+        
 
 
 
@@ -220,39 +176,43 @@ namespace DigitalFirmaClone.Controllers
             await _signInManager.SignOutAsync().ConfigureAwait(false);
             return Redirect("/");
         }
-
-
-        //[HttpPost]
-        //public async Task<IActionResult> UpdateCompany(Company file)
+        //public async Task<CompanyData> AddCompany(Company file)
         //{
 
         //    CompanyData receivedReservation = new CompanyData();
         //    using (var httpClient = new HttpClient())
         //    {
-        //        httpClient.DefaultRequestHeaders.Add("X-Api-Key", "7f000001-7c29-16ef-817c-35be2d830017:b48222c13b3a9c6858f8598293f3caf5ec09a90b1f8e62c012c0042da019ea44");
+        //        httpClient.DefaultRequestHeaders.Add("X-Api-Key", "7f000001-7c3d-192b-817c-4aa4bbb30009:d2a9e08e2cdbf21bc9d0d118b064ecc808f4f83a1cd58495875a59dfdeb29317");
 
         //        CreateCompany createCompany = new CreateCompany();
-        //        using (var fileStream = file.Image.OpenReadStream())
+        //        if (file.Image != null)
         //        {
-        //            byte[] array = new byte[fileStream.Length];
-        //            fileStream.Read(array, 0, array.Length);
-        //            createCompany.logo = array;
+        //            using (var fileStream = file.Image.OpenReadStream())
+        //            {
+        //                byte[] array = new byte[fileStream.Length];
+        //                fileStream.Read(array, 0, array.Length);
+        //                createCompany.logo = array;
+        //            }
         //        }
-        //        createCompany.name = "sameer 1";
+        //        createCompany.name = file.Name;
         //        StringContent content = new StringContent(JsonConvert.SerializeObject(createCompany), Encoding.UTF8, "application/json");
 
-        //        var request = new HttpRequestMessage
+        //        using (var response = await httpClient.PostAsync("http://api.digitafirma.com/v1/companies", content))
         //        {
-        //            RequestUri = new Uri("http://api.digitafirma.com/v1/companies/" + "7f000001-7c29-16ef-817c-350a5c600013"),
-        //            Method = new HttpMethod("Patch"),
-        //            Content = new StringContent("[{ \"op\": \"replace\", \"path\": \"name\", \"value\": \"" + createCompany.name + "\"},{ \"op\": \"replace\", \"path\": \"logo\", \"value\": \"" + createCompany.logo + "\"}]", Encoding.UTF8, "application/json")
-        //        };
+        //            string apiResponse = await response.Content.ReadAsStringAsync();
 
-        //        var response = await httpClient.SendAsync(request);
-        //        int assa = 1;
+        //            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+        //            {
+        //                var APIResponse = JsonConvert.DeserializeObject<APIResponse<List<CompanyData>>>(apiResponse);
+        //                return APIResponse.data.LastOrDefault();
+        //            }
+        //            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+        //            {
+        //                return new CompanyData();
+        //            }
+        //        }
         //    }
-        //    return View();
+        //    return new CompanyData();
         //}
-
     }
 }

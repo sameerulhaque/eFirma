@@ -2,6 +2,7 @@
 using DigitalFirmaClone.Models;
 using DigitalFirmaClone.Models.Dao;
 using DigitalFirmaClone.Models.ModelClasses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -78,6 +79,28 @@ namespace DigitalFirmaClone.Controllers
                 File = _hostingEnvironment.ContentRootPath + "/uploads/" + User.Identity.Name + "-Certificate-" + certificate.CertificateFileName,
             };
             document = _cer.Save(document);
+        }
+
+        [Authorize]
+        public IActionResult SignDocument(string id)
+        {
+            var UserId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "Id").Value ?? "0");
+
+            var IsAuthenticated = SignatureManager.IsWidgetAuthenticated(UserId, id);
+            if(IsAuthenticated)
+            {
+                ViewBag.WidgetId = id;
+                return View();
+            }
+            else
+            {
+                return Redirect("Authentication");
+            }
+        }
+
+        public IActionResult Authentication()
+        {
+            return View();
         }
     }
 }

@@ -36,7 +36,9 @@
         <link href="~/Metronic1/assets/css/themes/layout/aside/light.css" rel="stylesheet" type="text/css" />
         <!--end::Layout Themes-->
         <link rel="shortcut icon" href="~/LogoN.png" />
-
+        <script type="text/javascript">
+            window.mifiel = window.mifiel || [], function () { "use strict"; for (var e = ["widget"], i = function (e) { return function () { window.mifiel.push([e].concat(Array.prototype.slice.call(arguments, 0))) } }, t = 0; t < e.length; t++) { var n = e[t]; window.mifiel[n] || (window.mifiel[n] = i(n)) } if (!document.getElementById("mifiel-js")) { var r = document.createElement("script"), o = document.getElementsByTagName("script")[0]; r.type = "text/javascript", r.id = "mifiel-js", r.async = !0, r.src = "https://sandbox.mifiel.com/sign-widget-v1.0.0.js", o.parentNode.insertBefore(r, o) } }();
+        </script>
         <style>
             .FooterQauntity {
                 text-align: right;
@@ -71,11 +73,11 @@
             }
 
             .dataTables_wrapper .dataTable td.sorting_asc, .dataTables_wrapper .dataTable th.sorting_asc {
-                background-color: #ce3d9d!important;
+                background-color: #ee332d !important;
             }
 
             .dataTables_wrapper .dataTable td.sorting_desc, .dataTables_wrapper .dataTable th.sorting_desc {
-                background-color: #ce3d9d !important;
+                background-color: #ee332d !important;
             }
 
             #goog-gt-tt {
@@ -138,8 +140,8 @@
             }
 
             btn-outline-primary {
-                color: #ce3d9d !important;
-                border-color: #ce3d9d !important;
+                color: #ee332d !important;
+                border-color: #ee332d !important;
             }
 
             .success {
@@ -147,7 +149,7 @@
             }
 
             .info {
-                background-color: #ce3d9d !important;
+                background-color: #ee332d !important;
             }
 
             .MarginRight {
@@ -163,7 +165,7 @@
             }
 
             .jstree-default .jstree-icon {
-                color: #ce3d9d !important;
+                color: #ee332d !important;
             }
 
             .table-wrapper {
@@ -195,6 +197,7 @@
     </head>
     <!--end::Head-->
     <!--begin::Body-->
+   
     <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
         <!--begin::Main-->
         <!--begin::Page loader-->
@@ -270,8 +273,8 @@
                         <!--end::Toolbar-->
                     </div>
 
-                    <img alt="Logo" src="/user.png" style="height:50px!important;align-self: center;margin-top:40px">
-                    <p class="menu-text" style="text-align:center">@userDisplayName</p>
+                    @*<img alt="Logo" src="/user.png" style="height:50px!important;align-self: center;margin-top:40px">*@
+                    <h2 class="menu-text" style="text-align:center;margin-top:50px">@userDisplayName</h2>
                     <!--end::Brand-->
                     <!--begin::Aside Menu-->
                     <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
@@ -282,7 +285,9 @@
 
 
                                 <li class="menu-section">
-                                    <h4 class="menu-text">My Documents</h4>
+                                    <h4 class="menu-text">
+                                        Mis Documentos
+                                    </h4>
                                     <span class="svg-icon menu-icon">
                                         <span class="svg-icon svg-icon-primary svg-icon-2x">
                                             <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/Metronic1/releases/2020-12-28-020759/theme/html/demo1/dist/../src/media/svg/icons/Shopping/Wallet.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -301,12 +306,12 @@
                                     <div class="menu-submenu">
                                         <i class="menu-arrow"></i>
                                         <ul class="menu-subnav">
-                                            <li class="menu-item" style="@(ViewBag.Title == "Signature" ? "background-color: #ce3d9d;margin-left:10px;margin-right:10px;border-radius:5px" : "")" aria-haspopup="true">
+                                            <li class="menu-item" style="@(ViewBag.Title == "Signature" ? "background-color: #ee332d;margin-left:10px;margin-right:10px;border-radius:5px" : "")" aria-haspopup="true">
                                                 <a href="/Signature/Index" class="menu-link">
                                                     <i class="menu-bullet menu-bullet-dot">
                                                         <span></span>
                                                     </i>
-                                                    <span class="menu-text" style="@(ViewBag.Title == "Signature" ? "color: white!important;" : "")">Everybody</span>
+                                                    <span class="menu-text" style="@(ViewBag.Title == "Signature" ? "color: white!important;" : "")">Pendientes</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -317,28 +322,12 @@
                                     <div class="menu-submenu">
                                         <i class="menu-arrow"></i>
                                         <ul class="menu-subnav">
-                                            <li class="menu-item" style="@(ViewBag.Title == "Signed" ? "background-color: #ce3d9d;margin-left:10px;margin-right:10px;border-radius:5px" : "")" aria-haspopup="true">
+                                            <li class="menu-item" style="@(ViewBag.Title == "Signed" ? "background-color: #ee332d;margin-left:10px;margin-right:10px;border-radius:5px" : "")" aria-haspopup="true">
                                                 <a href="/Signature/Signed" class="menu-link">
                                                     <i class="menu-bullet menu-bullet-dot">
                                                         <span></span>
                                                     </i>
-                                                    <span class="menu-text" style="@(ViewBag.Title == "Signed" ? "color: white!important;" : "")">Signed</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-
-                                <li class="menu-item menu-item-submenu menu-item-open menu-item-here" aria-haspopup="true" data-menu-toggle="hover">
-                                    <div class="menu-submenu">
-                                        <i class="menu-arrow"></i>
-                                        <ul class="menu-subnav">
-                                            <li class="menu-item" style="@(ViewBag.Title == "Certificate" ? "background-color: #ce3d9d;margin-left:10px;margin-right:10px;border-radius:5px" : "")" aria-haspopup="true">
-                                                <a href="/Certificate/CreateCertificate" class="menu-link">
-                                                    <i class="menu-bullet menu-bullet-dot">
-                                                        <span></span>
-                                                    </i>
-                                                    <span class="menu-text" style="@(ViewBag.Title == "Certificate" ? "color: white!important;" : "")">Certificate</span>
+                                                    <span class="menu-text" style="@(ViewBag.Title == "Signed" ? "color: white!important;" : "")">Firmados</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -346,19 +335,19 @@
                                 </li>
 
 
-                                <li class="menu-section">
+                                <!--<li class="menu-section">
                                     <h4 class="menu-text">System</h4>
                                     <span class="svg-icon menu-icon">
-                                        <span class="svg-icon svg-icon-primary svg-icon-2x">
-                                            <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/Metronic1/releases/2020-12-28-020759/theme/html/demo1/dist/../src/media/svg/icons/Shopping/Wallet.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <span class="svg-icon svg-icon-primary svg-icon-2x">-->
+                                            <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/Metronic1/releases/2020-12-28-020759/theme/html/demo1/dist/../src/media/svg/icons/Shopping/Wallet.svg--><!--<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                     <rect x="0" y="0" width="24" height="24" />
                                                     <circle fill="#000000" opacity="0.3" cx="20.5" cy="12.5" r="1.5" />
                                                     <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 6.500000) rotate(-15.000000) translate(-12.000000, -6.500000) " x="3" y="3" width="18" height="7" rx="1" />
                                                     <path d="M22,9.33681558 C21.5453723,9.12084552 21.0367986,9 20.5,9 C18.5670034,9 17,10.5670034 17,12.5 C17,14.4329966 18.5670034,16 20.5,16 C21.0367986,16 21.5453723,15.8791545 22,15.6631844 L22,18 C22,19.1045695 21.1045695,20 20,20 L4,20 C2.8954305,20 2,19.1045695 2,18 L2,6 C2,4.8954305 2.8954305,4 4,4 L20,4 C21.1045695,4 22,4.8954305 22,6 L22,9.33681558 Z" fill="#000000" />
                                                 </g>
-                                            </svg><!--end::Svg Icon-->
-                                        </span>
+                                            </svg>--><!--end::Svg Icon-->
+                                        <!--</span>
                                     </span>
                                 </li>
 
@@ -366,7 +355,7 @@
                                     <div class="menu-submenu">
                                         <i class="menu-arrow"></i>
                                         <ul class="menu-subnav">
-                                            <li class="menu-item" style="@(ViewBag.Title == "Validator" ? "background-color: #ce3d9d;margin-left:10px;margin-right:10px;border-radius:5px" : "")" aria-haspopup="true">
+                                            <li class="menu-item" style="@(ViewBag.Title == "Validator" ? "background-color: #ee332d;margin-left:10px;margin-right:10px;border-radius:5px" : "")" aria-haspopup="true">
                                                 <a href="/Signature/PDFValidator" class="menu-link">
                                                     <i class="menu-bullet menu-bullet-dot">
                                                         <span></span>
@@ -376,7 +365,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </li>
+                                </li>-->
 
 
                             </ul>
@@ -416,7 +405,6 @@
                                 <!--begin::Chat-->
                                 <div class="topbar-item">
                                     <div class="btn btn-icon btn-clean btn-lg mr-1" data-toggle="modal" data-target="#kt_chat_modal">
-                                        Help
                                         <span class="svg-icon svg-icon-xl svg-icon-primary">
                                             <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group-chat.svg-->
                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -465,16 +453,16 @@
                                 <div class="topbar-item">
                                     <div class="btn btn-icon btn-icon-mobile w-auto btn-clean d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
                                         @*<span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>*@
-                                        <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">@userDisplayName</span>
+                                        @*<span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">@userDisplayName</span>*@
                                         <span class="symbol symbol-lg-35 symbol-25 symbol-light-success">
                                             <span class="symbol-label font-size-h5 font-weight-bold">@(userDisplayName.Length > 0 ? userDisplayName[0] : ' ')</span>
                                         </span>
                                     </div>
                                 </div>
 
-                                <div class="topbar-item">
+                                @*<div class="topbar-item">
                                     <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">LOG Out</span>
-                                </div>
+                                </div>*@
                                     <!--end::User-->
                                 </div>
                                 <!--end::Topbar-->
@@ -961,7 +949,7 @@
         </div>
         <!--end::Scrolltop-->
         <script>
-            var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1400 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#ce3d9d", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#8950FC", "warning": "#FFA800", "danger": "#F64E60", "light": "#E4E6EF", "dark": "#181C32" }, "light": { "white": "#ffffff", "primary": "#E1F0FF", "secondary": "#EBEDF3", "success": "#C9F7F5", "info": "#EEE5FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#3F4254", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#EBEDF3", "gray-300": "#E4E6EF", "gray-400": "#D1D3E0", "gray-500": "#B5B5C3", "gray-600": "#7E8299", "gray-700": "#5E6278", "gray-800": "#3F4254", "gray-900": "#181C32" } }, "font-family": "Poppins" };
+            var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1400 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#ee332d", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#8950FC", "warning": "#FFA800", "danger": "#F64E60", "light": "#E4E6EF", "dark": "#181C32" }, "light": { "white": "#ffffff", "primary": "#E1F0FF", "secondary": "#EBEDF3", "success": "#C9F7F5", "info": "#EEE5FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#3F4254", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#EBEDF3", "gray-300": "#E4E6EF", "gray-400": "#D1D3E0", "gray-500": "#B5B5C3", "gray-600": "#7E8299", "gray-700": "#5E6278", "gray-800": "#3F4254", "gray-900": "#181C32" } }, "font-family": "Poppins" };
         </script>
 
         <script type="text/javascript">

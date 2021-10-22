@@ -9,6 +9,7 @@ namespace DigitalFirmaClone.Models.ModelClasses
     {
         public string SignatureName { get; set; }
         public string SignatureEmail { get; set; }
-        public string RFC { get; internal set; }
+        public string RFC { get; set; }
+        public string WidgetId { get; set; }
     }
 }

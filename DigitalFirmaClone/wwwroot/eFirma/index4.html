@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/red.jpeg"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+
+<nav class="navbar navbar-light" style="margin-bottom: 5px;background-color: #f7f7f7;box-shadow: -5px 3px 8px">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+            <img src="images/logo_1.jpeg" alt="" width="145px" height="40px">
+        </a>
+
+        <form class="d-flex">
+            <div class="action">
+                <div class="profile" onclick="menuToggle();">
+                    <img id="proPic" src="/user.png" alt="" >
+                </div>
+                <div class="profileMenu">
+                    <img id="proPicCopy" class="proCopy" src="" alt="">
+                    <h4 class="profileName">Jone</h4>
+                    <h4 >Jone@gmail.com</h4>
+                    <ul>
+                        <li><i class="fa fa-medkit"></i><a href="index5.html">Setting</a></li>
+                        <li><i class="fa fa-sign-out"></i><a href="index.html">Sing Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+</nav>
+
+<div class="document-flow">
+    <div class="container-login100">
+        <div class="wrap-login100" >
+
+            <form class="flowB">
+                <div class="box">
+                    <h5 class="expDate">Document</h5>
+                    <br>
+                    <i class="fa fa-file-pdf-o"></i><span> test file.pdf</span>
+                    <br>
+                    <span class="expDate">Expiration date <i class="fa fa-question"></i></span>
+                    <label class="switch">
+                    <input id="toggleCheckBox" type="checkbox">
+                    <span id="btnToggle" class="slider round"></span></label>
+                    <br>
+                    <span class="docTxt">if by this date the document has been signed, it will be automatically deleted the next day</span>
+                    <br>
+                    <span class="reminders">Reminders <i class="fa fa-question"></i></span>
+                    <select class="remiSelector" name="days" >
+                        <option value="threeDays">Every three days (default)</option>
+                        <option value="forDay">Every for days</option>
+                        <option value="fiveDay">Every five days</option>
+                    </select>
+                    <div class="" style="display:block;">
+                        <span class="reminders">Massage for signers <i class="fa fa-question"></i></span>
+                        <label style="margin-left: -44px;" class="switch">
+                            <input id="toggleMessageCheckBox" type="checkbox">
+                            <span id="btnMessageToggle" class="slider round"></span>
+                        </label>
+                        <div id="msgBoxSection" style="border: 1px solid black;margin-top: 14px">
+                            <textarea class="msgBox" id="msgBox" name="w3review" rows="4" cols="50" >
+
+                            </textarea>
+                        </div>
+                        <span class="docTxt">Please, check the document you are preparing and the emails of the signers. When you are ready to request signatures, click the "Request signatures" button</span>
+                    </div>
+                    <button id="requestSignatures" style="margin-top: 29px;" class="login100-form-btn">
+                        <a style="color: white;text-decoration: unset;">REQUEST SIGNATURES</a>
+                    </button>
+                    <button style="margin-top: 29px;background-color: white;border: 1px solid black" class="login100-form-btn">
+                        <a  style="color: black;text-decoration: unset;">Cancel</a>
+                    </button>
+                </div>
+            </form>
+
+            <div id="PaymentModal" class="modal-bg">
+                <div class="paymentModal">
+                    <span id="payment-model-close" class="model-close">X</span>
+                    <div class="payment-container">
+                        <h1 class="paymentTop1">Confirm Your Payment</h1>
+                        <div class="first-row">
+                            <div class="owner">
+                                <h3 class="paymentTop1">Owner</h3>
+                                <div class="input-field">
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="cvv">
+                                <h3 class="paymentTop1">CVV</h3>
+                                <div class="input-field">
+                                    <input type="password">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="second-row">
+                            <div class="card-number">
+                                <h3 class="paymentTop1">Card Number</h3>
+                                <div class="input-field">
+                                    <input type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="third-row">
+                            <h3 class="paymentTop1">Expire Date</h3>
+                            <div class="selection">
+                                <div class="date">
+                                    <select name="months" id="months">
+                                        <option value="Jan">Jan</option>
+                                        <option value="Feb">Feb</option>
+                                        <option value="Mar">Mar</option>
+                                        <option value="Apr">Apr</option>
+                                        <option value="May">May</option>
+                                        <option value="Jun">Jun</option>
+                                        <option value="Jul">Jul</option>
+                                        <option value="Aug">Aug</option>
+                                        <option value="Sep">Sep</option>
+                                        <option value="Oct">Oct</option>
+                                        <option value="Nov">Nov</option>
+                                        <option value="Dec">Dec</option>
+                                    </select>
+                                    <select name="years" id="years">
+                                        <option value="2020">2020</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2015">2015</option>
+                                    </select>
+                                </div>
+                                <div class="cards">
+                                    <img src="images/mc.png" alt="">
+                                    <img src="images/vi.png" alt="">
+                                    <img src="images/Stripe-Logo.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <a class="confirm" href="">Confirm</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flowA">
+                <h4 class="docpagetop1">Preparation of the document</h4>
+                <div class="btnSection">
+                    <span id="btnPreparation" class="btnTbl">PREPARATION</span>
+                    <span id="btnDocument" class="btnTbl">DOCUMENT</span>
+                </div>
+                <div class="mainSection">
+                    <div id="preparationSection" class="preparationSection">
+                        <div class="participationSection">
+                            <h5 class="docPageTop2" >Add Participants</h5>
+                            <span class="docPageTop3">Add Reviewers: Do you need ago ahead for this document? <i class="fa fa-question"></i></span>
+                        </div>
+
+                        <div class="signatories">
+                            <span class="signatoriesLbl">Signatories</span>
+                            <div class="container">
+                                <table class="_table">
+                                    <thead>
+                                    <tr>
+                                        <th>EMAIL</th>
+                                        <th>NAME</th>
+                                        <th width="50px">
+                                            <div class="action_container">
+                                                <button class="success" onclick="create_tr('table_body')">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="table_body">
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form_control" placeholder="Jhon@gmail.com">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form_control" placeholder="Jone">
+                                        </td>
+                                        <td>
+                                            <div class="action_container">
+                                                <button class="danger" onclick="remove_tr(this)">
+                                                    <i class="fa fa-close"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <h5 class="docPageTop4">Add viewers</h5>
+                        <span class="docPageTop5">Viewers are notified every time someone signs the document and they also receive a copy of the signed document in their mail.</span>
+
+                        <button onauxclick="docPageTop6" id="addViewer" onclick="create_viewers_tr('viewer_table_body')" style="margin-top: 29px;margin-bottom:31px;width: 28%;background-color: white;border: 1px solid black;" class="login100-form-btn">
+                            <a style="color: black;text-decoration: unset;font-weight: bold">+ ADD VIEWER</a>
+                        </button>
+
+                        <div id="plus" class="container">
+                            <table class="_table">
+                                <thead>
+                                <tr>
+                                    <th>EMAIL</th>
+                                    <th>NAME</th>
+                                </tr>
+                                </thead>
+                                <tbody id="viewer_table_body">
+                                <tr>
+                                    <td>
+                                        <input type="text" class="form_control" placeholder="Jhon@gmail.com">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form_control" placeholder="Jone">
+                                    </td>
+                                    <td>
+                                        <div class="action_container">
+                                            <button class="danger" onclick="remove_tr(this)">
+                                                <i class="fa fa-close"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="documentSection" class="documentSection">
+                        <div class="pdfSection" style="margin-top: 20px">
+                            <iframe id="iFrame" class="pdf" src=""></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--===============================================================================================-->
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/daterangepicker/moment.min.js"></script>
+<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+<script src="js/main.js"></script>
+</body>
+</html>

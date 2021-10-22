@@ -25,6 +25,7 @@ namespace DigitalFirmaClone.EF
         public string email { get; set; }
         public string rfc { get; set; }
         public int? signature_id { get; set; }
+        public string widget_id { get; set; }
 
         public virtual sig_signature signature_ { get; set; }
     }

@@ -9,7 +9,8 @@ namespace DigitalFirmaClone.Bsl.Manager
     public interface ISignatureManager
     {
         public Signature GetSignatureById(Signature signature);
-        public List<Signature> GetAllSignatures();
+        public List<Signature> GetAllSignatures(int userId);
         public Signature AddSignature(Signature signature);
+        public bool IsWidgetAuthenticated(int UserId, string WidgetId);
     }
 }

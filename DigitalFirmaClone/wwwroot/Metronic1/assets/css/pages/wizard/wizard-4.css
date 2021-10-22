@@ -74,7 +74,7 @@
                     -ms-flex-pack: center;
                     justify-content: center;
                     background-color: rgba(54,153,255,.08);
-                    color: #ce3d9d;
+                    color: #ee332d;
                     margin-right: 1rem;
                     border-radius: .5rem;
                 }
@@ -100,11 +100,11 @@
 
                 .wizard.wizard-4 .wizard-nav .wizard-steps .wizard-step[data-wizard-state=current] .wizard-wrapper .wizard-number {
                     color: #fff;
-                    background-color: #ce3d9d;
+                    background-color: #ee332d;
                 }
 
                 .wizard.wizard-4 .wizard-nav .wizard-steps .wizard-step[data-wizard-state=current] .wizard-wrapper .wizard-label .wizard-title {
-                    color: #ce3d9d;
+                    color: #ee332d;
                 }
 
         .wizard.wizard-4 .wizard-nav .wizard-steps[data-total-steps="2"] .wizard-step {

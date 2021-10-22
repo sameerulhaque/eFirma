@@ -1,0 +1,116 @@
+@{
+    Layout = null;
+}
+@model DigitalFirmaClone.Bsl.Model.LoginViewModel
+@using DigitalFirmaClone.Bsl.Utils
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sing_Up</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/efirma/images/icons/red.jpeg" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/efirma/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/efirma/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/efirma/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/efirma/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/efirma/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/efirma/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/efirma/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/efirma/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/efirma/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/efirma/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+    <nav class="navbar navbar-light" style="margin-bottom: 5px;background-color: #f7f7f7;box-shadow: -5px 3px 8px">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="/efirma/images/logo_1.jpeg" alt="" width="145px" height="40px">
+            </a>
+            <form class="d-flex">
+                <a href="index.html" class="navBarBtn">LOGIN</a>
+                <a href="" class="navBarBtn">+94 712 345 678</a>
+            </form>
+        </div>
+    </nav>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100" style="height: 89vh">
+                <form class="login100-form validate-form" method="post" asp-action="CreateAccount">
+
+                    <h3 class="login100-form-title p-b-43 p-4">WELCOME</h3>
+
+                    <div class="wrap-input100 validate-input" data-validate="Name is required">
+                        <input class="input100" type="text" asp-for="UserName">
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Name</span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" asp-for="Email">
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Email</span>
+                    </div>
+
+
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <input class="input100" type="password" asp-for="Password">
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Password</span>
+                    </div>
+
+
+                    <div style="margin-top: 35px" class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            CREATE ACCOUNT
+                        </button>
+                        <div>
+                            <a style="color: #EE332D" href="index.html" class="txt1">
+                                Back to Login
+                            </a>
+                        </div>
+
+                    </div>
+
+
+                </form>
+
+                <div class="login100-more" style="background-image: url('/efirma/images/sing_up_side.jpg');">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--===============================================================================================-->
+    <script src="/efirma/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/efirma/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/efirma/vendor/bootstrap/js/popper.js"></script>
+    <script src="/efirma/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/efirma/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/efirma/vendor/daterangepicker/moment.min.js"></script>
+    <script src="/efirma/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="/efirma/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="/efirma/js/main.js"></script>
+
+</body>
+</html>

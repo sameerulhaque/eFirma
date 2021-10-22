@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DigitalFirmaClone.Bsl.Model;
 using DigitalFirmaClone.Models.ModelClasses;
 using DigitalFirmaClone.Models.APIClasses;
+using Microsoft.EntityFrameworkCore;
 
 namespace DigitalFirmaClone.Bsl.Manager
 {
@@ -24,21 +25,14 @@ namespace DigitalFirmaClone.Bsl.Manager
             {
                 Signature Signature = new Signature();
 
-                var sig_signature_IsExist = dbContext.sig_signature.Where(x => x.paypal_id == signature.PaypalId).FirstOrDefault();
+                var sig_signature_IsExist = dbContext.sig_signature
+                    .Where(x => x.signature_id == signature.Id)
+                    .Include(x => x.sig_signature_details)
+                    .Include(x => x.sig_spectators_details)
+                    .FirstOrDefault();
 
                 Signature.Id = sig_signature_IsExist.signature_id;
-                Signature.DocumentString = sig_signature_IsExist.document_string;
                 Signature.DocumentName = sig_signature_IsExist.document_name;
-                Signature.Auth = sig_signature_IsExist.auth;
-                Signature.PaypalId = sig_signature_IsExist.paypal_id;
-                Signature.CompanyId = sig_signature_IsExist.company_id;
-                Signature.SignOrdered = sig_signature_IsExist.sign_ordered;
-                Signature.ModeLogo = sig_signature_IsExist.mode_logo;
-                Signature.RememberAt = sig_signature_IsExist.remember_at;
-                Signature.RememberEvery = sig_signature_IsExist.remember_every;
-                Signature.SignMode = sig_signature_IsExist.sign_mode;
-                Signature.SignPosition = sig_signature_IsExist.sign_position;
-                Signature.Tries = sig_signature_IsExist.tries;
 
                 foreach (var item in sig_signature_IsExist.sig_signature_details)
                 {
@@ -46,6 +40,7 @@ namespace DigitalFirmaClone.Bsl.Manager
                     signatures.SignatureName = item.name;
                     signatures.SignatureEmail = item.email;
                     signatures.RFC = "";
+                    signatures.WidgetId = item.widget_id;
                     Signature.SignersList.Add(signatures);
                 }
 
@@ -65,13 +60,13 @@ namespace DigitalFirmaClone.Bsl.Manager
             }
         }
 
-        public List<Signature> GetAllSignatures()
+        public List<Signature> GetAllSignatures(int userId)
         {
             try
             {
                 List<Signature> SignatureList = new List<Signature>();
 
-                var sig_signature = dbContext.sig_signature.ToList();
+                var sig_signature = dbContext.sig_signature.Where(x => x.user_id == userId).ToList();
 
                 foreach (var item in sig_signature)
                 {
@@ -79,18 +74,8 @@ namespace DigitalFirmaClone.Bsl.Manager
 
                     Signature.Id = item.signature_id;
                     Signature.DocumentName = item.document_name;
-                    Signature.DocumentString = item.document_string;
-                    Signature.Auth = item.auth;
-                    Signature.PaypalId = item.paypal_id;
-                    Signature.CompanyId = item.company_id;
-                    Signature.SignOrdered = item.sign_ordered;
-                    Signature.ModeLogo = item.mode_logo;
-                    Signature.RememberAt = item.remember_at;
-                    Signature.RememberEvery = item.remember_every;
-                    Signature.SignMode = item.sign_mode;
-                    Signature.SignPosition = item.sign_position;
-                    Signature.Tries = item.tries;
                     Signature.SignStatus = "UnSigned";
+                    Signature.MifielId = item.mifiel_id;
                     Signature.CreateDateString = DateTime.Now.ToString("dd/MM/yyyy");
 
                     foreach (var x in item.sig_signature_details)
@@ -99,6 +84,7 @@ namespace DigitalFirmaClone.Bsl.Manager
                         signatures.SignatureName = x.name;
                         signatures.SignatureEmail = x.email;
                         signatures.RFC = "";
+                        signatures.WidgetId = x.widget_id;
                         Signature.SignersList.Add(signatures);
                     }
 
@@ -126,18 +112,15 @@ namespace DigitalFirmaClone.Bsl.Manager
             {
                 sig_signature Signature = new sig_signature();
 
-                Signature.document_string = signature.DocumentString ?? "";
-                Signature.auth = signature.Auth ?? "";
                 Signature.document_name = signature.FileName ?? "";
-                Signature.paypal_id = signature.PaypalId ?? "";
-                Signature.company_id = signature.CompanyId ?? "";
-                Signature.sign_ordered = signature.SignOrdered ?? "";
-                Signature.mode_logo = signature.ModeLogo ?? "";
-                Signature.remember_at = signature.RememberAt ?? "";
-                Signature.remember_every = signature.RememberEvery == 0 ? null : signature.RememberEvery;
-                Signature.sign_mode = signature.SignMode ?? "";
-                Signature.sign_position = signature.SignPosition ?? "";
-                Signature.tries = signature.Tries ?? "";
+                Signature.mifiel_id = signature.MifielId;
+                Signature.user_id = signature.UserId;
+
+                dbContext.sig_signature.Add(Signature);
+                dbContext.SaveChanges();
+
+                Signature Signaturess = new Signature();
+                Signaturess.Id = Signature.signature_id;
 
                 foreach (var item in signature.SignersList)
                 {
@@ -147,6 +130,8 @@ namespace DigitalFirmaClone.Bsl.Manager
                         signatures.name = item.SignatureName;
                         signatures.email = item.SignatureEmail;
                         signatures.rfc = "";
+                        signatures.signature_id = Signaturess.Id;
+                        signatures.widget_id = item.WidgetId;
                         Signature.sig_signature_details.Add(signatures);
                     }
                 }
@@ -158,14 +143,12 @@ namespace DigitalFirmaClone.Bsl.Manager
                         sig_spectators_details spectators = new sig_spectators_details();
                         spectators.name = item.ViewerName;
                         spectators.email = item.ViewerEmail;
+                        spectators.signature_id = Signaturess.Id;
                         Signature.sig_spectators_details.Add(spectators);
                     }
                 }
 
-                dbContext.sig_signature.Add(Signature);
                 dbContext.SaveChanges();
-
-                Signature Signaturess = new Signature();
                 Signaturess.Id = Signature.signature_id;
                 return Signaturess;
             }
@@ -173,6 +156,17 @@ namespace DigitalFirmaClone.Bsl.Manager
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+
+        public bool IsWidgetAuthenticated(int UserId, string WidgetId)
+        {
+            var IsAuthenticated = dbContext.sig_signature_details.Where(x => x.widget_id == WidgetId && x.signature_.user_id == UserId).FirstOrDefault();
+            if(IsAuthenticated != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -41,12 +41,6 @@ namespace DigitalFirmaClone.EF
 
                 entity.Property(e => e.approved_date).HasDefaultValueSql("'NULL'");
 
-                entity.Property(e => e.auth).HasDefaultValueSql("'NULL'");
-
-                entity.Property(e => e.company_id)
-                    .HasMaxLength(255)
-                    .HasDefaultValueSql("'NULL'");
-
                 entity.Property(e => e.created_by)
                     .HasColumnType("int(11)")
                     .HasDefaultValueSql("'NULL'");
@@ -56,8 +50,6 @@ namespace DigitalFirmaClone.EF
                 entity.Property(e => e.document_name)
                     .HasMaxLength(255)
                     .HasDefaultValueSql("'NULL'");
-
-                entity.Property(e => e.document_string).HasDefaultValueSql("'NULL'");
 
                 entity.Property(e => e.is_active)
                     .HasColumnType("int(11)")
@@ -75,55 +67,17 @@ namespace DigitalFirmaClone.EF
                     .HasColumnType("int(11)")
                     .HasDefaultValueSql("'NULL'");
 
-                entity.Property(e => e.mode_logo)
-                    .HasMaxLength(255)
-                    .HasDefaultValueSql("'NULL'");
-
                 entity.Property(e => e.modified_by)
                     .HasColumnType("int(11)")
                     .HasDefaultValueSql("'NULL'");
 
                 entity.Property(e => e.modified_date).HasDefaultValueSql("'NULL'");
 
-                entity.Property(e => e.paypal_id)
-                    .HasMaxLength(255)
-                    .HasDefaultValueSql("'NULL'");
 
                 entity.Property(e => e.remarks)
                     .HasMaxLength(255)
                     .HasDefaultValueSql("'NULL'");
 
-                entity.Property(e => e.remember_at)
-                    .HasMaxLength(255)
-                    .HasDefaultValueSql("'NULL'");
-
-                entity.Property(e => e.remember_every)
-                    .HasColumnType("int(255)")
-                    .HasDefaultValueSql("'NULL'");
-
-                entity.Property(e => e.sign_mode)
-                    .HasMaxLength(255)
-                    .HasDefaultValueSql("'NULL'");
-
-                entity.Property(e => e.sign_ordered)
-                    .HasMaxLength(255)
-                    .HasDefaultValueSql("'NULL'");
-
-                entity.Property(e => e.sign_position)
-                    .HasMaxLength(255)
-                    .HasDefaultValueSql("'NULL'");
-
-                entity.Property(e => e.signature_details_id)
-                    .HasColumnType("int(11)")
-                    .HasDefaultValueSql("'NULL'");
-
-                entity.Property(e => e.spectators_id)
-                    .HasColumnType("int(11)")
-                    .HasDefaultValueSql("'NULL'");
-
-                entity.Property(e => e.tries)
-                    .HasMaxLength(255)
-                    .HasDefaultValueSql("'NULL'");
             });
 
             modelBuilder.Entity<sig_signature_details>(entity =>

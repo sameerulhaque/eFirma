@@ -34,12 +34,13 @@ namespace DigitalFirmaClone.Bsl.Manager
 
                 emailMessage.Subject = emailData.EmailSubject;
 
-                BodyBuilder emailBodyBuilder = new BodyBuilder();
-                emailBodyBuilder.TextBody = emailData.EmailBody;
-                emailMessage.Body = emailBodyBuilder.ToMessageBody();
+                var bodyBuilder = new BodyBuilder();
+                bodyBuilder.HtmlBody = emailData.EmailBody;
+                bodyBuilder.TextBody = "hello";
+                emailMessage.Body = bodyBuilder.ToMessageBody();
 
                 SmtpClient emailClient = new SmtpClient();
-                emailClient.Connect(_emailSettings.Host, _emailSettings.Port, false);
+                emailClient.Connect(_emailSettings.Host, _emailSettings.Port, true);
                 emailClient.Authenticate(_emailSettings.EmailId, _emailSettings.Password);
                 emailClient.Send(emailMessage);
                 emailClient.Disconnect(true);
@@ -70,7 +71,6 @@ namespace DigitalFirmaClone.Bsl.Manager
                 emailMessage.Subject = emailData.EmailSubject;
 
                 BodyBuilder emailBodyBuilder = new BodyBuilder();
-
                 if (emailData.EmailAttachments != null)
                 {
                     byte[] attachmentFileByteArray;
@@ -90,7 +90,6 @@ namespace DigitalFirmaClone.Bsl.Manager
 
                 emailBodyBuilder.TextBody = emailData.EmailBody;
                 emailMessage.Body = emailBodyBuilder.ToMessageBody();
-
                 SmtpClient emailClient = new SmtpClient();
                 emailClient.Connect(_emailSettings.Host, _emailSettings.Port, false);
                 emailClient.Authenticate(_emailSettings.EmailId, _emailSettings.Password);
