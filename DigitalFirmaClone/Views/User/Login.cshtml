@@ -38,7 +38,7 @@
 
     <nav class="navbar navbar-light" style="margin-bottom: 5px;background-color: #f7f7f7;box-shadow: -5px 3px 8px">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="/Signature/UploadElement">
                 <img src="/efirma/images/logo_1.jpeg" alt="" width="145px" height="40px">
             </a>
             <form class="d-flex">
@@ -54,7 +54,7 @@
 
                 <form class="login100-form validate-form" method="post" asp-action="Login">
                     <h3 class="login100-form-title p-b-43 p-4">Nice to see you again!</h3>
-
+                    <input type="hidden" asp-for="ReturnUrl" />
 
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                         <input class="input100" type="text" asp-for="Email">
@@ -91,24 +91,26 @@
 
                 </form>
 
-                <form method="post" asp-action="ExternalLogin">
-                    <div class="text-center p-t-46 p-b-20">
+                <form class="withGoogle" method="post" asp-action="ExternalLogin">
+                    <input type="hidden" asp-for="ReturnUrl" />
+                    <div class="text-center p-b-20">
                         <span class="txt2">
-                            or sign up using
+                            or using
                         </span>
                     </div>
                     <div class="login100-form-social flex-c-m">
-                        <button class="login100-form-social-item flex-c-m bg1 m-r-5" name="provider" value="@Model.ExternalLogins.FirstOrDefault().Name">
-                            <i class="fa fa-google" aria-hidden="true"></i>
+                        <i class="fa fa-google" aria-hidden="true"></i>
+                        <button class="btn" style="background-color:white" name="provider" value="@Model.ExternalLogins.FirstOrDefault().Name">
+                            <span>Sing in with Google</span>
                         </button>
-                        <span>Sing in with Google</span>
+
                     </div>
                 </form>
 
 
 
-                <div class="login100-more" style="background-image: url('/efirma/images/bg-01.jpg');">
-                </div>
+                    <div class="login100-more" style="background-image: url('/efirma/images/bg-01.jpg');">
+                    </div>
             </div>
         </div>
     </div>

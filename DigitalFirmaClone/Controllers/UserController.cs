@@ -33,11 +33,11 @@ namespace DigitalFirmaClone.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return Redirect("/Signature/UploadElement");
+                return Redirect(string.IsNullOrEmpty(returnUrl) ? "/Signature/UploadElement" : returnUrl);
             }
             LoginViewModel model = new LoginViewModel
             {
-                ReturnUrl = "/Signature/UploadElement",
+                ReturnUrl = string.IsNullOrEmpty(returnUrl) ? "/Signature/UploadElement" : "",
                 ExternalLogins = await _signInManager.GetExternalAuthenticationSchemesAsync()
             };
             return View(model);
@@ -58,7 +58,7 @@ namespace DigitalFirmaClone.Controllers
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false).ConfigureAwait(false);
             if (result.Succeeded)
             {
-                return Redirect("/Signature/UploadElement");
+                return Redirect(string.IsNullOrEmpty(model.ReturnUrl) ? "/Signature/UploadElement" : model.ReturnUrl);
             }
 
             ModelState.AddModelError("FileNameValidation", "Password does not match.");
@@ -157,7 +157,7 @@ namespace DigitalFirmaClone.Controllers
 
                 var result = await _signInManager.PasswordSignInAsync(info.Principal.FindFirstValue(ClaimTypes.Email), info.ProviderKey, true, lockoutOnFailure: false).ConfigureAwait(false);
                 if (result.Succeeded)
-                    return LocalRedirect(returnUrl);
+                    return LocalRedirect(string.IsNullOrEmpty(returnUrl) ? "/Signature/UploadElement" : returnUrl);
             }
 
             return View("Error");

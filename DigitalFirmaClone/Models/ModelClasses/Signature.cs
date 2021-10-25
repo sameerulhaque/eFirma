@@ -39,7 +39,8 @@ namespace DigitalFirmaClone.Models.ModelClasses
 
         public PayModel PayModel { get; set; }
         public int UserId { get;  set; }
-        public string MifielId { get; internal set; }
+        public string MifielId { get;  set; }
+        public string MessageForSigners { get;  set; }
 
         //public string DocumentString { get;  set; }
         //public string Auth { get;  set; }

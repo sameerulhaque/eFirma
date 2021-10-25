@@ -302,46 +302,51 @@ function menuToggle(){
     toggleMenu.classList.toggle('active')
 }
 
-
-let btnPreparation = document.getElementById("btnPreparation");
-let btnDocument = document.getElementById("btnDocument");
-
-let IFrame = document.getElementById('iFrame');
-
-let preparationSection = document.getElementById("preparationSection");
-if (preparationSection){
-    preparationSection.style.display='block';
-    btnPreparation.style.backgroundColor='#2e3133';
-    btnPreparation.style.color='white';
-    btnDocument.style.color='black';
-}
-let documentSection = document.getElementById("documentSection");
-if (documentSection){
-    documentSection.style.display='none'
-}
-if (btnPreparation){
-    btnPreparation.addEventListener('click',function (){
-        preparationSection.style.display='block'
-        documentSection.style.display='none'
-        btnPreparation.style.backgroundColor='#2e3133';
-        btnPreparation.style.color='white';
-        btnDocument.style.backgroundColor='white';
-        btnDocument.style.color='black';
-    })
+function about(){
+    let toggleAbout = document.querySelector('.aboutMsg');
+    toggleAbout.classList.toggle('active')
 }
 
-if (btnDocument){
-    btnDocument.addEventListener('click',function (){
-        preparationSection.style.display='none'
-        documentSection.style.display='block'
-        btnPreparation.style.backgroundColor='white';
-        btnPreparation.style.color='black';
-        btnDocument.style.color='white';
-        btnDocument.style.backgroundColor='#2e3133';
-        IFrame.src= fileURL;
 
-    })
-}
+//let btnPreparation = document.getElementById("btnPreparation");
+//let btnDocument = document.getElementById("btnDocument");
+
+//let IFrame = document.getElementById('iFrame');
+
+//let preparationSection = document.getElementById("preparationSection");
+//if (preparationSection){
+//    preparationSection.style.display='block';
+//    btnPreparation.style.backgroundColor='#2e3133';
+//    btnPreparation.style.color='white';
+//    btnDocument.style.color='black';
+//}
+//let documentSection = document.getElementById("documentSection");
+//if (documentSection){
+//    documentSection.style.display='none'
+//}
+//if (btnPreparation){
+//    btnPreparation.addEventListener('click',function (){
+//        preparationSection.style.display='block'
+//        documentSection.style.display='none'
+//        btnPreparation.style.backgroundColor='#2e3133';
+//        btnPreparation.style.color='white';
+//        btnDocument.style.backgroundColor='white';
+//        btnDocument.style.color='black';
+//    })
+//}
+
+//if (btnDocument){
+//    btnDocument.addEventListener('click',function (){
+//        preparationSection.style.display='none'
+//        documentSection.style.display='block'
+//        btnPreparation.style.backgroundColor='white';
+//        btnPreparation.style.color='black';
+//        btnDocument.style.color='white';
+//        btnDocument.style.backgroundColor='#2e3133';
+//        IFrame.src= fileURL;
+
+//    })
+//}
 
 function create_tr(table_id) {
     let table_body = document.getElementById(table_id),
@@ -392,7 +397,22 @@ function create_viewers_tr(table_id) {
     clean_first_tr(table_body.firstElementChild);
 }
 
-let ToggleMessageBtn = document.getElementById('btnMessageToggle');
+let ToggleExpBtn = document.getElementById('btnExpToggle');
+let ToggleExpCheckBox = document.getElementById('toggleExpCheckBox');
+let ExpBox = document.getElementById('expDateSection');
+
+if (ExpBox){
+    ExpBox.style.display="none"
+}
+
+$("#btnExpToggle").click(function (){
+    if (ToggleExpCheckBox.checked!=true){
+        ExpBox.style.display='block'
+    }else {
+        ExpBox.style.display='none'
+    }
+});
+
 let ToggleMessageChekBox = document.getElementById('toggleMessageCheckBox');
 let MSGBox = document.getElementById('msgBoxSection');
 
@@ -407,6 +427,8 @@ $("#btnMessageToggle").click(function (){
         MSGBox.style.display='none'
     }
 });
+
+
 
 
 var PaymentModal = document.getElementById("PaymentModal");

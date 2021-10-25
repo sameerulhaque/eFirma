@@ -29,7 +29,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-light" style="margin-bottom: 5px;background-color: #f7f7f7;box-shadow: -5px 3px 8px">
+<nav class="navbar navbar-light" style="margin-bottom: 5px;z-index: 10;background-color: #f7f7f7;box-shadow: -5px 3px 8px;position:fixed;top: 0;width: 100%">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.html">
             <img src="images/logo_1.jpeg" alt="" width="145px" height="40px">
@@ -38,7 +38,7 @@
         <form class="d-flex">
             <div class="action">
                 <div class="profile" onclick="menuToggle();">
-                    <img id="proPic" src="/user.png" alt="" >
+                    <img id="proPic" src="images/profile_pic.jpg" alt="" >
                 </div>
                 <div class="profileMenu">
                     <img id="proPicCopy" class="proCopy" src="" alt="">
@@ -55,7 +55,7 @@
 </nav>
 
 <div class="document-flow">
-    <div class="container-login100">
+    <div class="container-login100" style="margin-top: 69px">
         <div class="wrap-login100" >
 
             <form class="flowB">
@@ -64,29 +64,61 @@
                     <br>
                     <i class="fa fa-file-pdf-o"></i><span> test file.pdf</span>
                     <br>
-                    <span class="expDate">Expiration date <i class="fa fa-question"></i></span>
+                    <span class="expDate">Expiration date
+                            <ul>
+                                <li><i class="fa fa-question"></i>
+                                    <div class="content1">
+                                        <p>Set a deadline by which the document must be signed. After this date, the signers and spectators will not be able to see or sign the document.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                    </span>
                     <label class="switch">
-                    <input id="toggleCheckBox" type="checkbox">
-                    <span id="btnToggle" class="slider round"></span></label>
+                    <input id="toggleExpCheckBox" type="checkbox">
+                    <span id="btnExpToggle" class="slider round"></span></label>
                     <br>
                     <span class="docTxt">if by this date the document has been signed, it will be automatically deleted the next day</span>
                     <br>
-                    <span class="reminders">Reminders <i class="fa fa-question"></i></span>
+                    <div id="expDateSection" style="border: 1px solid black;margin-top: 14px">
+                        <input style="width: 100%" type="date" id="start" name="exp-date"
+                               value="2018-07-22"
+                               min="2018-01-01" max="2018-12-31">
+                    </div>
+                    <br>
+                    <span class="reminders">Reminders
+                            <ul>
+                                <li><i class="fa fa-question"></i>
+                                    <div class="content2">
+                                        <p>We will send up to 5 automatic reminders to pending signers following the periodicity of the option you select.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                    </span>
                     <select class="remiSelector" name="days" >
                         <option value="threeDays">Every three days (default)</option>
                         <option value="forDay">Every for days</option>
                         <option value="fiveDay">Every five days</option>
                     </select>
-                    <div class="" style="display:block;">
-                        <span class="reminders">Massage for signers <i class="fa fa-question"></i></span>
+                    <div class="msgForSignersAria">
+                        <span class="reminders">Massage for signers
+                            <ul>
+                                <li><i class="fa fa-question"></i>
+                                    <div class="content">
+                                        <p>Send a personalized message to your signers to give them context or instructions regarding the document. This message will be included in the invitation email.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </span>
+
                         <label style="margin-left: -44px;" class="switch">
                             <input id="toggleMessageCheckBox" type="checkbox">
                             <span id="btnMessageToggle" class="slider round"></span>
                         </label>
                         <div id="msgBoxSection" style="border: 1px solid black;margin-top: 14px">
-                            <textarea class="msgBox" id="msgBox" name="w3review" rows="4" cols="50" >
-
-                            </textarea>
+                            <form action="">
+                                <textarea class="msgBox" id="msgBox" name="message" rows="4" cols="30"></textarea>
+                                <br><br>
+                            </form>
                         </div>
                         <span class="docTxt">Please, check the document you are preparing and the emails of the signers. When you are ready to request signatures, click the "Request signatures" button</span>
                     </div>
@@ -106,7 +138,7 @@
                         <h1 class="paymentTop1">Confirm Your Payment</h1>
                         <div class="first-row">
                             <div class="owner">
-                                <h3 class="paymentTop1">Owner</h3>
+                                <h3 class="paymentTop1">Card Holder Name</h3>
                                 <div class="input-field">
                                     <input type="text">
                                 </div>

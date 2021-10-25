@@ -84,9 +84,9 @@ namespace DigitalFirmaClone.Controllers
         [Authorize]
         public IActionResult SignDocument(string id)
         {
-            var UserId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "Id").Value ?? "0");
+            var Email = User.Claims.FirstOrDefault(x => x.Type == "Email").Value ?? "";
 
-            var IsAuthenticated = SignatureManager.IsWidgetAuthenticated(UserId, id);
+            var IsAuthenticated = SignatureManager.IsWidgetAuthenticated(Email, id);
             if(IsAuthenticated)
             {
                 ViewBag.WidgetId = id;

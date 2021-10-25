@@ -1,7 +1,14 @@
-﻿@{ 
+﻿@{
     Layout = null;
 }
+@using System.Security.Claims
+@if (User.Identity.IsAuthenticated)
+{
 
+    ClaimsPrincipal user = User;
+    var userId = user.Claims.FirstOrDefault(x => x.Type == "Id").Value ?? "";
+    var userEmail = user.Claims.FirstOrDefault(x => x.Type == "Email").Value ?? "";
+    var userDisplayName = user.Claims.FirstOrDefault(x => x.Type == "DisplayName").Value ?? "";
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,9 +40,9 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-light" style="margin-bottom: 5px;background-color: #f7f7f7;box-shadow: -5px 3px 8px">
+    <nav class="navbar navbar-light" style="margin-bottom: 5px;z-index: 10;background-color: #f7f7f7;box-shadow: -5px 3px 8px;position:fixed;top: 0;width: 100%">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="/Signature/UploadElement">
                 <img src="/efirma/images/logo_1.jpeg" alt="" width="145px" height="40px">
             </a>
 
@@ -46,10 +53,10 @@
                     </div>
                     <div class="profileMenu">
                         <img id="proPicCopy" class="proCopy" src="" alt="">
-                        <h4 class="profileName">Jone</h4>
-                        <h4>Jone@gmail.com</h4>
+                        <h4 class="profileName">@userDisplayName</h4>
+                        <h4>@userEmail</h4>
                         <ul>
-                            <li><i class="fa fa-medkit"></i><a href="index5.html">Setting</a></li>
+                            @*<li><i class="fa fa-medkit"></i><a href="index5.html">Setting</a></li>*@
                             <li><i class="fa fa-sign-out"></i><a href="/User/Logout">Sign Out</a></li>
                         </ul>
                     </div>
@@ -59,7 +66,7 @@
     </nav>
 
     <div class="document-flow">
-        <div class="container-login100">
+        <div class="container-login100" style="margin-top: 69px">
             <div class="wrap-login100">
 
                 <form class="flowB">
@@ -69,33 +76,73 @@
                         <input type="hidden" value="@ViewBag.FileName" class="FileName" />
                         <i class="fa fa-file-pdf-o"></i><span>@ViewBag.FileName</span>
                         <br>
-                        <span class="expDate">Expiration date <i class="fa fa-question"></i></span>
-                        <label class="switch">
+                        <span class="expDate">
+                            Expiration date
+                            <ul>
+                                <li>
+                                    <i class="fa fa-question"></i>
+                                    <div class="content1">
+                                        <p>Set a deadline by which the document must be signed. After this date, the signers and spectators will not be able to see or sign the document.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </span>                        <label class="switch">
                             <input id="toggleCheckBox" type="checkbox">
                             <span id="btnToggle" class="slider round"></span>
                         </label>
                         <br>
                         <span class="docTxt">if by this date the document has been signed, it will be automatically deleted the next day</span>
                         <br>
-                        <span class="reminders">Reminders <i class="fa fa-question"></i></span>
+                        <div id="expDateSection" style="border: 1px solid black;margin-top: 14px">
+                            <input style="width: 100%" type="date" id="start" name="exp-date"
+                                   value="2018-07-22"
+                                   min="2018-01-01" max="2018-12-31">
+                        </div>
+                        <br>
+                        <span class="reminders">
+                            Reminders
+                            <ul>
+                                <li>
+                                    <i class="fa fa-question"></i>
+                                    <div class="content2">
+                                        <p>We will send up to 5 automatic reminders to pending signers following the periodicity of the option you select.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </span>
                         <select class="remiSelector" name="days">
                             <option value="threeDays">Every three days (default)</option>
                             <option value="forDay">Every for days</option>
                             <option value="fiveDay">Every five days</option>
                         </select>
-                        <div class="" style="display:block;">
-                            <span class="reminders">Massage for signers <i class="fa fa-question"></i></span>
+
+
+                        <div class="msgForSignersAria">
+                            <span class="reminders">
+                                Massage for signers
+                                <ul>
+                                    <li>
+                                        <i class="fa fa-question"></i>
+                                        <div class="content">
+                                            <p>Send a personalized message to your signers to give them context or instructions regarding the document. This message will be included in the invitation email.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </span>
+
                             <label style="margin-left: -44px;" class="switch">
                                 <input id="toggleMessageCheckBox" type="checkbox">
                                 <span id="btnMessageToggle" class="slider round"></span>
                             </label>
                             <div id="msgBoxSection" style="border: 1px solid black;margin-top: 14px">
-                                <textarea class="msgBox" id="msgBox" name="w3review" rows="4" cols="50">
-
-                            </textarea>
+                                @*<form action="">*@
+                                    <textarea class="msgBox MessageForSigners" id="msgBox" name="message" rows="4" cols="30"></textarea>
+                                    <br><br>
+                                @*</form>*@
                             </div>
                             <span class="docTxt">Please, check the document you are preparing and the emails of the signers. When you are ready to request signatures, click the "Request signatures" button</span>
                         </div>
+
                         <button id="requestSignatures" style="margin-top: 29px;" class="login100-form-btn">
                             <a style="color: white;text-decoration: unset;">REQUEST SIGNATURES</a>
                         </button>
@@ -113,7 +160,7 @@
                                 <h1 class="paymentTop1">Confirm Your Payment</h1>
                                 <div class="first-row">
                                     <div class="owner">
-                                        <h3 class="paymentTop1 ">Owner</h3>
+                                        <h3 class="paymentTop1 ">Card Holder Name</h3>
                                         <div class="input-field">
                                             <input type="text" class="CustomerName" required>
                                         </div>
@@ -135,7 +182,7 @@
                                     <div class="amount">
                                         <h3 class="paymentTop1">Amount</h3>
                                         <div class="input-field">
-                                            <input type="text" class="Amount" value="38" disabled>
+                                            <input type="text" class="Amount" value="39" disabled>
                                         </div>
                                     </div>
 
@@ -177,8 +224,8 @@
                 <div class="flowA">
                     <h4 class="docpagetop1">Preparation of the document</h4>
                     <!--<div class="btnSection">
-                        <span id="btnPreparation" class="btnTbl">PREPARATION</span>-->
-                        @*<span id="btnDocument" class="btnTbl">DOCUMENT</span>*@
+                    <span id="btnPreparation" class="btnTbl">PREPARATION</span>-->
+                    @*<span id="btnDocument" class="btnTbl">DOCUMENT</span>*@
                     <!--</div>-->
                     <div class="mainSection">
                         <div id="preparationSection" class="preparationSection">
@@ -207,10 +254,10 @@
                                         <tbody id="table_body">
                                             <tr class="SignatureTbody">
                                                 <td>
-                                                    <input type="text" class="form_control SigantureEmailHidden" placeholder="Jhon@gmail.com">
+                                                    <input type="text" required class="form_control SigantureEmailHidden" placeholder="Jhon@gmail.com" value='@(ViewBag.x == 1 ? userEmail : "")'>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form_control SigantureNameHidden" placeholder="Jone">
+                                                    <input type="text" required class="form_control SigantureNameHidden" placeholder="Jone" value='@(ViewBag.x == 1 ? userDisplayName : "")'>
                                                 </td>
                                                 <td>
                                                     <div class="action_container">
@@ -303,6 +350,7 @@
         function SubmitFunction() {
             debugger;
             var FileName = $(".FileName").val();
+            var MessageForSigners = $(".MessageForSigners").val();
             //var Total = $(".Total").val();
 
             var CustomerName = $(".CustomerName").val();
@@ -343,6 +391,7 @@
             });
 
             Object.append("FileName", FileName);
+            Object.append("MessageForSigners", MessageForSigners);
             //Object.append("Total", Total);
 
 
@@ -381,3 +430,4 @@
 
 </body>
 </html>
+}

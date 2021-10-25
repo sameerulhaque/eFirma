@@ -159,9 +159,9 @@ namespace DigitalFirmaClone.Bsl.Manager
         }
 
 
-        public bool IsWidgetAuthenticated(int UserId, string WidgetId)
+        public bool IsWidgetAuthenticated(string Email, string WidgetId)
         {
-            var IsAuthenticated = dbContext.sig_signature_details.Where(x => x.widget_id == WidgetId && x.signature_.user_id == UserId).FirstOrDefault();
+            var IsAuthenticated = dbContext.sig_signature_details.Where(x => x.widget_id == WidgetId && x.email == Email).FirstOrDefault();
             if(IsAuthenticated != null)
             {
                 return true;

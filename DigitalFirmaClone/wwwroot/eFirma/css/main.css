@@ -395,12 +395,12 @@ input.input100 {
 }
 
 .input100:focus + .focus-input100 + .label-input100 {
-  top: 14px;
+  top: 3px;
   font-size: 13px;
 }
 
 .has-val {
-  height: 48px !important;
+  height: 15px !important;
 }
 
 .has-val + .focus-input100 + .label-input100 {
@@ -694,7 +694,11 @@ input.input100 {
 }
 
 /*===============================Home Page================================*/
-
+.withGoogle{
+  position: absolute;
+  bottom: 50px;
+  right: 285px;
+}
 .action {
   position: relative;
   top: 2px;
@@ -828,6 +832,7 @@ input.input100 {
   align-items: center;
   justify-content: center;
   min-height: 50vh;
+  margin-top: 85px;
   flex-direction: column;
   background-color: #e0eafc;
   background: -webkit-linear-gradient(to right,#cfdef3,#e0eafc);
@@ -1088,13 +1093,13 @@ input:checked + .slider:before {
   margin-bottom: 20px;
 }
 .fa-question {
-  background-color: #b2bec3;
+  cursor: pointer;
+  /* background-color: #b2bec3; */
   border-radius: 20px;
-  /* width: 14px; */
-  padding: 5px;
-  font-size: 11px;
+  font-size: 13px;
   color: white;
-  margin-top: 40px;
+  margin-top: 0;
+  padding-left: 6px;
 }
 .expDate{
   font-size: 18px;
@@ -1105,6 +1110,7 @@ input:checked + .slider:before {
   font-size: 18px;
   font-weight: 600;
   margin-right: 160px;
+  margin-top: 14px;
 }
 .remiSelector{
   -webkit-user-select: none;
@@ -1121,7 +1127,8 @@ input:checked + .slider:before {
 }
 .msgBox{
   width: 100%;
-  margin-top: 12px;
+  margin-top: 0;
+  margin-bottom: -31px;
 }
 
 .participationSection{
@@ -1322,7 +1329,7 @@ input:checked + .slider:before {
 .docPageTop2 {
   font-size: 16px;
   font-weight: bold;
-  margin-bottom: -31px;
+  margin-bottom: 10pxpx;
 }
 .docPageTop3{
   font-size: 12px;
@@ -1342,12 +1349,176 @@ input:checked + .slider:before {
   font-size: 12px;
   font-weight: bold;
 }
+.msgForSignersAria{
+  display: block;
+}
+.msgForSignersAria ul{
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.msgForSignersAria ul li{
+  position: relative;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  background: #777;
+  margin: 0 5px;
+  border-radius: 50%;
+  transition: 0.5s;
+  line-height: 1;
+  cursor: pointer;
+}
+.msgForSignersAria ul li .content{
+  position: absolute;
+  bottom: 57px;
+  width: 283px;
+  background: #576574;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  visibility: hidden;
+  z-index: 5;
+  opacity: 0;
+  transition: 0.5s;
+  transform: translateX(-50%) translateY(-50px);
+}
+.msgForSignersAria ul li .content p{
+  color: white;
+}
+.msgForSignersAria ul li .content:before{
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #576574;
+  bottom: -15px;
+  left: 135px;
+  transform: rotate(45deg);
+}
+
+.msgForSignersAria ul li:hover .content{
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0px);
+
+}
+
+/*2*/
+
+.expDate ul{
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.expDate ul li{
+  position: relative;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  background: #777;
+  margin: 0 5px;
+  border-radius: 50%;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.expDate ul li .content1{
+  position: absolute;
+  bottom: 43px;
+  width: 283px;
+  background: #576574;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  visibility: hidden;
+  z-index: 5;
+  opacity: 0;
+  transition: 0.5s;
+  transform: translateX(-50%) translateY(-50px);
+}
+.expDate ul li .content1 p{
+  color: white;
+}
+.expDate ul li .content1:before{
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #576574;
+  bottom: -15px;
+  left: 135px;
+  transform: rotate(45deg);
+}
+
+.expDate ul li:hover .content1{
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0px);
+}
+
+/*3*/
+
+.reminders ul{
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.reminders ul li{
+  position: relative;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  background: #777;
+  margin: 0 5px;
+  border-radius: 50%;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.reminders ul li .content2{
+  position: absolute;
+  bottom: 43px;
+  width: 283px;
+  background: #576574;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  visibility: hidden;
+  z-index: 5;
+  opacity: 0;
+  transition: 0.5s;
+  transform: translateX(-50%) translateY(-50px);
+}
+.reminders ul li .content2 p{
+  color: white;
+}
+.reminders ul li .content2:before{
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #576574;
+  bottom: -15px;
+  left: 135px;
+  transform: rotate(45deg);
+}
+
+.reminders ul li:hover .content2{
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0px);
+}
+
 /*--------------------------------Media Query for laptop------------------------------*/
 
 
 
 
 @media (max-width: 2560px) {
+  .withGoogle {
+    position: absolute;
+    right: 777px;
+  }
   .container-fluid{
     width: 80.9%;
   }
@@ -1420,12 +1591,15 @@ input:checked + .slider:before {
   .reminders {
     font-size: 18px;
     font-weight: 600;
-    margin-right: 340px;
+    margin-right: 331px;
+    display: inline-flex;
+    margin-top: 14px;
   }
   .expDate {
     font-weight: 600;
     font-size: 15px;
-    margin-right: 368px;
+    display: inline-flex;
+    margin-right: 358px;
   }
 
   .flowB {
@@ -1457,6 +1631,10 @@ input:checked + .slider:before {
 }
 
 @media (max-width: 2076px) {
+  .withGoogle {
+    position: absolute;
+    right: 502px;
+  }
   .container-fluid{
     width: 88.9%;
   }
@@ -1521,12 +1699,14 @@ input:checked + .slider:before {
   .expDate {
     font-weight: 600;
     font-size: 15px;
-    margin-right: 329px;
+    margin-right: 324px;
   }
   .reminders {
     font-size: 18px;
     font-weight: 600;
     margin-right: 301px;
+    margin-top: 14px;
+
   }
   .payment-container {
     width: 750px;
@@ -1548,6 +1728,7 @@ input:checked + .slider:before {
   }
   .inputSection {
     display: flex;
+    margin-top: 85px;
     align-items: center;
     justify-content: center;
     min-height: 35vh;
@@ -1617,6 +1798,10 @@ input:checked + .slider:before {
 }
 
 @media (max-width: 1920px) {
+  .withGoogle {
+    position: absolute;
+    right: 445px;
+  }
   .container-fluid{
     width: 88.9%;
   }
@@ -1681,12 +1866,13 @@ input:checked + .slider:before {
   .expDate {
     font-weight: 600;
     font-size: 15px;
-    margin-right: 291px;
+    margin-right: 281px;
   }
   .reminders {
     font-size: 18px;
     font-weight: 600;
-    margin-right: 266px;
+    margin-right: 257px;
+    margin-top: 14px;
   }
   .payment-container {
     width: 750px;
@@ -1708,6 +1894,7 @@ input:checked + .slider:before {
   .inputSection {
     display: flex;
     align-items: center;
+    margin-top: 85px;
     justify-content: center;
     min-height: 35vh;
     flex-direction: column;
@@ -1771,6 +1958,10 @@ input:checked + .slider:before {
 }
 
 @media (max-width: 1500px) {
+  .withGoogle {
+    position: absolute;
+    right: 328px;
+  }
   .container-fluid{
     width: 88.9%;
   }
@@ -1864,6 +2055,7 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 85px;
     min-height: 35vh;
     flex-direction: column;
     background-color: #e0eafc;
@@ -1926,6 +2118,10 @@ input:checked + .slider:before {
 }
 
 @media (max-width: 1440px){
+  .withGoogle {
+    position: absolute;
+    right: 310px;
+  }
   .container-fluid{
     width: 87.9%;
   }
@@ -1961,6 +2157,7 @@ input:checked + .slider:before {
     margin-right: 7px;
     cursor: pointer;
     padding: 0;
+    color: black;
   }
   .flowB {
     width: 25%;
@@ -1979,12 +2176,15 @@ input:checked + .slider:before {
   .expDate {
     font-weight: 600;
     font-size: 15px;
-    margin-right: 101px;
+    display: inline-flex;
+    margin-right: 88px;
   }
   .reminders {
     font-size: 17px;
+    margin-top: 14px;
     font-weight: 600;
-    margin-right: 86px;
+    display: inline-flex;
+    margin-right: 76px;
   }
   .profileModal {
     position: relative;
@@ -2065,6 +2265,7 @@ input:checked + .slider:before {
     min-height: 33vh;
     flex-direction: column;
     background-color: #e0eafc;
+    margin-top: 85px;
     background: -webkit-linear-gradient(to right,#cfdef3,#e0eafc);
     background: linear-gradient(to right,#cfdef3,#e0eafc);
   }
@@ -2077,6 +2278,7 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 85px;
     min-height: 33vh;
     flex-direction: column;
     /* background-color: #e0eafc; */
@@ -2127,6 +2329,10 @@ input:checked + .slider:before {
 }
 
 @media (max-width: 1366px){
+  .withGoogle {
+    position: absolute;
+    right: 292px;
+  }
   .flowA {
     width: 53%;
     background-repeat: no-repeat;
@@ -2155,7 +2361,7 @@ input:checked + .slider:before {
     padding: 6px;
     font-size: 9px;
     font-weight: bold;
-    color: white;
+    color: black;
   }
   .btnTbl:hover{
     background-color: #2e3133;
@@ -2178,12 +2384,14 @@ input:checked + .slider:before {
   .expDate {
     font-weight: 600;
     font-size: 15px;
-    margin-right: 150px;
+    margin-right: 139px;
   }
   .reminders {
     font-size: 15px;
     font-weight: 600;
-    margin-right: 152px;
+    margin-right: 145px;
+    margin-top: 14px;
+    display: inline-flex;
   }
   .modalSideB {
     width: 37%;
@@ -2277,6 +2485,10 @@ input:checked + .slider:before {
 }
 
 @media (max-width: 1326px){
+  .withGoogle {
+    position: absolute;
+    right: 283px;
+  }
   .payment-container {
     width: 657px;
     height: 558px;
@@ -2318,6 +2530,7 @@ input:checked + .slider:before {
     margin-right: 7px;
     cursor: pointer;
     padding: 0;
+    color: black;
   }
   .flowB {
     width: 30%;
@@ -2341,6 +2554,8 @@ input:checked + .slider:before {
     font-size: 17px;
     font-weight: 600;
     margin-right: 106px;
+    margin-top: 14px;
+
   }
   .modalSideB {
     width: 37%;
@@ -2407,6 +2622,10 @@ input:checked + .slider:before {
 }
 
 @media (max-width: 1199px){
+  .withGoogle {
+    position: absolute;
+    right: 242px;
+  }
   .container-fluid{
     width: 88.9%;
   }
@@ -2433,6 +2652,7 @@ input:checked + .slider:before {
     margin-right: 7px;
     cursor: pointer;
     padding: 0;
+    color: black;
   }
   .flowB {
     width: 36%;
@@ -2457,6 +2677,8 @@ input:checked + .slider:before {
     font-size: 17px;
     font-weight: 600;
     margin-right: 159px;
+    margin-top: 14px;
+
   }
   .modalSideB {
     width: 43%;
@@ -2559,6 +2781,10 @@ input:checked + .slider:before {
 }
 
 @media (max-width: 1024px){
+  .withGoogle {
+    position: absolute;
+    right: 192px;
+  }
   .container-fluid{
     width: 88%;
   }
@@ -2625,12 +2851,14 @@ input:checked + .slider:before {
   .expDate {
     font-weight: 600;
     font-size: 15px;
-    margin-right: 162px;
+    margin-right: 150px;
+    display: inline-flex;
   }
   .reminders {
     font-size: 17px;
     font-weight: 600;
-    margin-right: 145px;
+    margin-top: 14px;
+    margin-right: 134px;
   }
   .modalSideB {
     width: 51%;
@@ -2695,6 +2923,7 @@ input:checked + .slider:before {
   .inputSection {
     display: flex;
     justify-content: center;
+    margin-top: 85px;
     background: -webkit-linear-gradient(to right,#cfdef3,#e0eafc);
   }
   .pdf {
@@ -2757,6 +2986,10 @@ input:checked + .slider:before {
 /*==========================media query for Tablet=========================*/
 
 @media (max-width: 991px){
+  .withGoogle {
+    position: absolute;
+    right: 142px;
+  }
   .box {
     width: 100%;
     background-color: white;
@@ -2784,17 +3017,23 @@ input:checked + .slider:before {
   .expDate {
     font-weight: 600;
     font-size: 15px;
-    margin-right: 141px;
+    margin-right: 140px;
   }
   .reminders {
     font-size: 17px;
+    margin-top: 14px;
     font-weight: 600;
-    margin-right: 132px;
+    margin-right: 123px;
   }
 
 }
 
 @media (max-width: 768px){
+  .withGoogle {
+    position: absolute;
+    right: 0;
+    left: 0;
+  }
   .container-fluid{
     width: 89.9%;
   }
@@ -2863,12 +3102,15 @@ input:checked + .slider:before {
   .expDate {
     font-weight: 600;
     font-size: 15px;
-    margin-right: 66px;
+    margin-right: 51px;
+    display: inline-flex;
   }
   .reminders {
     font-size: 17px;
     font-weight: 600;
-    margin-right: 48px;
+    margin-right: 39px;
+    margin-top: 14px;
+    display: inline-flex;
   }
   .model-close {
     position: absolute;
@@ -3005,6 +3247,8 @@ input:checked + .slider:before {
     font-size: 17px;
     font-weight: 600;
     margin-right: 187px;
+    margin-top: 14px;
+
   }
   .paymentModal {
     position: relative;

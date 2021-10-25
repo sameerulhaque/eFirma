@@ -224,7 +224,17 @@ namespace DigitalFirmaClone.Controllers
 
         public IActionResult UploadElement()
         {
-            return View();
+            var UserId = User.Claims.FirstOrDefault(x => x.Type == "Id").Value ?? "0";
+            var GetAllSignatures = SignatureManager.GetAllSignatures(int.Parse(UserId));
+            var customerData = _docs.FindAll().Where(x => GetAllSignatures.Any(y => y.MifielId == x.Id));
+
+            foreach (var item in customerData)
+            {
+                item.SignStatus = item.Signed ? "Signed" : "Unsigned";
+                item.SignStatusColor = item.SignStatus == "Signed" ? "success" : "danger";
+                item.CreatedAtString = item.CreatedAt.ToString("dd/MM/yyyy");
+            }
+            return View(customerData);
         }
 
         [HttpPost]
@@ -243,7 +253,7 @@ namespace DigitalFirmaClone.Controllers
 
             return new JsonResult(new { name = "sameer" });
         }
-        public IActionResult CreateNew(string id)
+        public IActionResult CreateNew(string id, int? x)
         {
             if (!string.IsNullOrEmpty(id))
             {
@@ -251,7 +261,7 @@ namespace DigitalFirmaClone.Controllers
                 ViewBag.Title = "Everybody";
                 ViewBag.SubTitle = "List";
                 ViewBag.FileName = id;
-
+                ViewBag.x = x;
                 return View();
             }
             else
@@ -266,9 +276,14 @@ namespace DigitalFirmaClone.Controllers
             {
                 var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "Id").Value ?? "0");
 
-                Object.PayModel.Amount = 10 * 100;
-                var result = await ProcessPayment.PayAsync(Object.PayModel, configuration.GetSection("Stripe").GetValue<string>("secret"));
-                if (result.Paid || userId == 3)
+                Object.PayModel.Amount = 39 * 100;
+               
+                Stripe.Charge result = null;
+                if (userId != 1)
+                {
+                    result = await ProcessPayment.PayAsync(Object.PayModel, configuration.GetSection("Stripe").GetValue<string>("secret"));
+                }
+                if (userId == 1 ? true : result.Paid)
                 {
                     Object.FileName = _hostingEnvironment.ContentRootPath + "/uploads/" + User.Identity.Name + "-" + Object.FileName;
                     var document = new DigitalFirmaClone.Models.Objects.Document()
@@ -329,6 +344,9 @@ namespace DigitalFirmaClone.Controllers
                         emailData.EmailBody += "<p>" + User.Identity.Name + " has requested that you sign the same document as " + document.FileFileName + "</p>";
                         emailData.EmailBody += "<p> has requested that you sign the same document as " + document.FileFileName + "</p>";
                         emailData.EmailBody += "<a href='https://efirma.bivts.com/Certificate/SignDocument/" + item.WidgetId + "'> Click here to sign </a>";
+
+
+                        emailData.EmailBody += "<p>" + Object.MessageForSigners + "</p>";
                         emailData.EmailBody += "<p>Greetings</p>";
                         emailData.EmailBody += "<p>Desique Team.</p>";
 
@@ -339,7 +357,7 @@ namespace DigitalFirmaClone.Controllers
                     }
 
 
-                    return Json(new { result = "Redirect", url = "/Signature/Success" });
+                    return Json(new { result = "Redirect", url = "/Signature/UploadElement" });
                 }
                 else
                 {
